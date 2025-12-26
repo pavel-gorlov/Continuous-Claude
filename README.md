@@ -221,6 +221,7 @@ Fresh context + ledger loaded
 ```
 
 **Why this works:**
+
 - Ledgers are lossless - you control what's saved
 - Fresh context = full signal
 - Agents spawn with clean context, not degraded summaries
@@ -230,6 +231,7 @@ Fresh context + ledger loaded
 ## Quick Start
 
 **Which option?**
+
 - Just trying it on ONE project? → Start with Option 1
 - Want it on ALL your projects? → Do Option 2 (global), then Option 3 (per-project)
 
@@ -382,6 +384,7 @@ Project initialized! You can now:
 ```
 
 This creates:
+
 - `thoughts/` - Plans, handoffs, ledgers (gitignored)
 - `.claude/cache/artifact-index/` - Local search database (SQLite + FTS5)
 - Adds `.claude/cache/` to `.gitignore`
@@ -391,6 +394,7 @@ This creates:
 ### What's Optional?
 
 All external services are optional. Without API keys:
+
 - **Continuity system**: Works (no external deps)
 - **TDD workflow**: Works (no external deps)
 - **Session tracing**: Disabled (needs BRAINTRUST_API_KEY)
@@ -432,6 +436,7 @@ This kit responds to natural language triggers. Say certain phrases and Claude a
 5. **Creates continuity ledger** - At `thoughts/ledgers/CONTINUITY_CLAUDE-<project>.md`
 
 **Example workflow:**
+
 ```bash
 # 1. Initialize project structure
 ~/.claude/scripts/init-project.sh
@@ -451,6 +456,7 @@ claude
 | "verify implementation", "did it work", "check code" | Runs **validate_plan** to verify against plan |
 
 **The 3-step flow:**
+
 ```
 1. plan-agent     → Creates plan in thoughts/shared/plans/
 2. validate-agent → RAG-judge (past precedent) + WebSearch (best practices)
@@ -477,6 +483,7 @@ claude
 | "explore", "get familiar", "overview" | Spawns **explore** agent with configurable depth |
 
 **rp-explorer uses RepoPrompt tools** (requires Pro license - $14.99/mo or $349 lifetime):
+
 - **Context Builder** - Deep AI-powered exploration (async, 30s-5min)
 - **Codemaps** - Function/class signatures without full file content (10x fewer tokens)
 - **Slices** - Read specific line ranges, not whole files
@@ -526,6 +533,7 @@ claude
 | "debug hook", "hook not working", "hook failing" | Runs **debug-hooks** skill - systematic debugging workflow |
 
 **The `/hook-developer` skill** is a comprehensive reference covering:
+
 - All 10 Claude Code hook types (PreToolUse, PostToolUse, SessionStart, etc.)
 - Input/output JSON schemas for each hook
 - Matcher patterns and registration in settings.json
@@ -567,6 +575,7 @@ implement_plan (orchestrator)
 ```
 
 Each task agent:
+
 1. Reads previous handoff
 2. Does its work with TDD
 3. Creates handoff for next agent
@@ -652,9 +661,7 @@ description: Search with my tool
 ---
 # My Tool
 
-```bash
 uv run python -m runtime.harness scripts/my_tool.py --query "your query"
-```
 EOF
 ```
 
@@ -679,6 +686,7 @@ EOF
 ```
 
 **Enforcement levels:**
+
 - `suggest` - Skill appears as suggestion (most common)
 - `block` - Requires skill before proceeding (guardrail)
 - `warn` - Shows warning but allows proceeding
@@ -689,10 +697,10 @@ EOF
 
 Agents can reference your scripts for complex workflows. Example from `.claude/agents/research-agent.md`:
 
-```markdown
-## Step 3: Research with MCP Tools
+##### Step 3: Research with MCP Tools
 
-### For External Knowledge
+###### For External Knowledge
+
 ```bash
 # Documentation search (Nia)
 uv run python -m runtime.harness scripts/nia_docs.py --query "your query"
@@ -701,15 +709,15 @@ uv run python -m runtime.harness scripts/nia_docs.py --query "your query"
 uv run python -m runtime.harness scripts/perplexity_search.py --query "your query"
 ```
 
-### For Codebase Knowledge
+###### For Codebase Knowledge
+
 ```bash
 # Fast code search (Morph)
 uv run python -m runtime.harness scripts/morph_search.py --query "pattern" --path "."
 ```
-\```
-```
 
 Agents use MCP scripts to:
+
 - Perform research across multiple sources
 - Investigate issues with codebase search
 - Apply fixes using fast editing tools
@@ -751,6 +759,7 @@ The complete integration flow:
 6. **Activation:** User says "search code for error handling" → auto-suggests
 
 **Key benefits:**
+
 - **Progressive disclosure:** 110 tokens (99.6% reduction) vs full tool schemas
 - **Reusability:** Scripts work for agents, skills, and direct execution
 - **Auto-discovery:** skill-rules.json enables context-aware suggestions
@@ -763,11 +772,13 @@ The complete integration flow:
 ### Ledger (within session)
 
 Before running `/clear`:
+
 ```
 "Update the ledger, I'm about to clear"
 ```
 
 Creates/updates `CONTINUITY_CLAUDE-<session>.md` with:
+
 - Goal and constraints
 - What's done, what's next
 - Key decisions
@@ -778,17 +789,20 @@ After `/clear`, the ledger loads automatically.
 ### Handoff (between sessions)
 
 When done for the day:
+
 ```
 "Create a handoff, I'm done for today"
 ```
 
 Creates `thoughts/handoffs/<session>/handoff-<timestamp>.md` with:
+
 - Detailed context
 - Recent changes with file:line references
 - Learnings and patterns
 - Next steps
 
 Next session:
+
 ```
 "Resume from handoff"
 ```
@@ -841,12 +855,14 @@ The StatusLine writes context % to `/tmp/claude-context-pct-{SESSION_ID}.txt` (p
 Runs on: `resume`, `clear`, `compact`
 
 **What it does:**
+
 1. Finds most recent `CONTINUITY_CLAUDE-*.md` ledger
 2. Extracts Goal and current focus ("Now:")
 3. Finds latest handoff (task-*.md or auto-handoff-*.md)
 4. Injects ledger + handoff into system context
 
 **Result:** After `/clear`, Claude immediately knows:
+
 - What you're working on
 - What's done vs pending
 - Recent decisions and learnings
@@ -856,6 +872,7 @@ Runs on: `resume`, `clear`, `compact`
 Runs: Before any compaction
 
 **Auto-compact (trigger: auto):**
+
 1. Parses transcript to extract tool calls and responses
 2. Generates detailed `auto-handoff-<timestamp>.md` with:
    - Files modified
@@ -864,6 +881,7 @@ Runs: Before any compaction
 3. Saves to `thoughts/handoffs/<session>/`
 
 **Manual compact (trigger: manual):**
+
 - Blocks compaction
 - Prompts you to run `/continuity_ledger` first
 
@@ -874,6 +892,7 @@ Runs: Every message you send
 **Two functions:**
 
 1. **Skill activation** - Scans your message for keywords defined in `skill-rules.json`. Shows relevant skills:
+
    ```
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    🎯 SKILL ACTIVATION CHECK
@@ -897,6 +916,7 @@ Runs: Every message you send
 Runs: Before Edit/Write on `.ts` or `.tsx` files
 
 **What it does:**
+
 1. Runs `tsc --noEmit` on the file being edited
 2. If type errors exist, blocks the edit and shows errors to Claude
 3. Claude fixes the issues before proceeding
@@ -904,6 +924,7 @@ Runs: Before Edit/Write on `.ts` or `.tsx` files
 **Why this matters:** Catches type errors early, before they compound across multiple edits. Claude sees the errors in context and can fix them immediately.
 
 **Example output when blocked:**
+
 ```
 TypeScript errors in src/hooks/my-hook.ts:
   Line 15: Property 'result' does not exist on type 'HookOutput'
@@ -923,6 +944,7 @@ cat | node dist/session-start-continuity.mjs
 ```
 
 **For developers** who want to modify hooks:
+
 ```bash
 cd .claude/hooks
 vim src/session-start-continuity.ts  # Edit source
@@ -997,6 +1019,7 @@ The system captures what was tried during development - build failures, fixes, e
 | `status.sh` | StatusLine - shows context %, git status, focus |
 
 **Example:**
+
 ```
 "recall what was tried for authentication bugs"
 → Searches .git/claude/commits/*/reasoning.md
@@ -1162,6 +1185,7 @@ This kit extends the [official Braintrust Claude plugin](https://github.com/brai
 1. **Get API key** from [braintrust.dev](https://braintrust.dev)
 
 2. **Add to environment:**
+
    ```bash
    echo 'BRAINTRUST_API_KEY="sk-..."' >> ~/.claude/.env
    ```
@@ -1200,6 +1224,7 @@ session_id: abc-123-main      # Claude session ID
 ```
 
 This enables:
+
 - **Trace → Handoff** correlation (what work produced this handoff?)
 - **Session family queries** (all handoffs from session X)
 - **RAG-enhanced judging** (Artifact Index precedent for plan validation)
@@ -1207,6 +1232,7 @@ This enables:
 ### Disabling Braintrust
 
 Remove or comment out the Braintrust hooks in `.claude/settings.json`:
+
 ```json
 {
   "hooks": {
@@ -1311,11 +1337,13 @@ If you write code first, the skill prompts you to delete it and start with a tes
 **Automatically installed** by `install-global.sh`. The `.qlty/` config is included in this repo, so no `qlty init` needed.
 
 Manual install (if needed):
+
 ```bash
 curl -fsSL https://qlty.sh/install.sh | bash
 ```
 
 Use it:
+
 ```
 "lint my code"
 "check code quality"
@@ -1323,6 +1351,7 @@ Use it:
 ```
 
 Or directly:
+
 ```bash
 qlty check --fix
 qlty fmt
@@ -1363,11 +1392,13 @@ NIA_API_KEY="nk_..."
 ```
 
 Services without API keys still work:
+
 - `git` - local git operations
 - `ast-grep` - structural code search
 - `qlty` - code quality (auto-installed by `install-global.sh`)
 
 License-based (no API key, requires purchase):
+
 - `repoprompt` - codebase maps (Free tier: basic features; Pro: MCP tools, CodeMaps)
 
 ---
@@ -1388,15 +1419,18 @@ License-based (no API key, requires purchase):
 ## Troubleshooting
 
 **"MCP server not configured"**
+
 - Check `mcp_config.json` exists
 - Run `uv run mcp-generate`
 - Verify `.env` has required keys
 
 **Skills not working**
+
 - Run via harness: `uv run python -m runtime.harness scripts/...`
 - Not directly: `python scripts/...`
 
 **Ledger not loading**
+
 - Check `CONTINUITY_CLAUDE-*.md` exists
 - Verify hooks are registered in `.claude/settings.json`
 - Make hooks executable: `chmod +x .claude/hooks/*.sh`
@@ -1406,6 +1440,7 @@ License-based (no API key, requires purchase):
 ## Acknowledgments
 
 ### Patterns & Architecture
+
 - **[@numman-ali](https://github.com/numman-ali)** - Continuity ledger pattern
 - **[Anthropic](https://anthropic.com)** - [Code Execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp)
 - **[obra/superpowers](https://github.com/obra/superpowers)** - Agent orchestration patterns
@@ -1414,6 +1449,7 @@ License-based (no API key, requires purchase):
 - **[HumanLayer](https://github.com/humanlayer/humanlayer)** - Agent patterns
 
 ### Tools & Services
+
 - **[Braintrust](https://braintrust.dev)** - LLM evaluation, logging, and session tracing
 - **[qlty](https://github.com/qltysh/qlty)** - Universal code quality CLI (70+ linters)
 - **[ast-grep](https://github.com/ast-grep/ast-grep)** - AST-based code search and refactoring
