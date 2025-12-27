@@ -6,6 +6,7 @@ detect_context() {
     local script_dir script_path
     script_dir="$(cd "$(dirname "${BASH_SOURCE[1]}")" && pwd)"
     script_path="$(realpath "${BASH_SOURCE[1]}")"
+    local cctoast_dir="${script_dir}/../cctoast-wsl"
     
     # Debug output if enabled
     if [[ "${CCTOAST_DEBUG:-}" == "1" ]]; then
@@ -17,9 +18,9 @@ detect_context() {
     if [[ "$script_path" == "${HOME}/.claude/cctoast-wsl/"* ]]; then
         # Installed mode - use installation paths
         echo "installed:${HOME}/.claude/cctoast-wsl"
-    elif [[ -f "${script_dir}/../assets/claude.png" ]]; then
-        # Development mode - running from project directory
-        echo "development:${script_dir}/.."
+    elif [[ -f "${cctoast_dir}/assets/claude.png" ]]; then
+        # Development mode - running from project directory (cctoast assets present)
+        echo "development:${cctoast_dir}"
     else
         # Unknown context - use installation paths as fallback
         echo "unknown:${HOME}/.claude/cctoast-wsl"
@@ -42,11 +43,7 @@ readonly LOG="${HOME}/.claude/cctoast-wsl/toast-error.log"
 readonly timeout_bin=$(command -v timeout || true)
 
 # Set default icon path based on context
-if [[ "$CONTEXT_TYPE" == "development" ]]; then
-    readonly DEFAULT_ICON="${CONTEXT_ROOT}/assets/claude.png"
-else
-    readonly DEFAULT_ICON="${HOME}/.claude/cctoast-wsl/assets/claude.png"
-fi
+readonly DEFAULT_ICON="${CONTEXT_ROOT}/assets/claude.png"
 
 # Debug output for context detection
 if [[ "${CCTOAST_DEBUG:-}" == "1" ]]; then

@@ -102,6 +102,23 @@ else
     echo ""
 fi
 
+# Install Claude toast icon (PNG)
+ICON_SRC_DIR="$SCRIPT_DIR/.claude/cctoast-wsl/assets"
+ICON_DEST_DIR="$HOME/.claude/cctoast-wsl/assets"
+ICON_FILE="claude.png"
+echo "Installing Claude toast icon..."
+if [ -f "$ICON_SRC_DIR/$ICON_FILE" ]; then
+    mkdir -p "$ICON_DEST_DIR"
+    if cp "$ICON_SRC_DIR/$ICON_FILE" "$ICON_DEST_DIR/$ICON_FILE"; then
+        echo "✓ Claude icon installed to $ICON_DEST_DIR/$ICON_FILE"
+    else
+        echo "⚠️  Could not copy icon to $ICON_DEST_DIR"
+    fi
+else
+    echo "⚠️  Icon not found at $ICON_SRC_DIR/$ICON_FILE; skipping"
+fi
+echo ""
+
 # Install MCP runtime package globally (makes mcp-exec, mcp-generate available everywhere)
 echo "Installing MCP runtime package globally..."
 cd "$SCRIPT_DIR"
