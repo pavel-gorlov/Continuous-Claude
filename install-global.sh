@@ -86,6 +86,22 @@ elif command -v qlty &> /dev/null || [ -f "$HOME/.qlty/bin/qlty" ]; then
     echo ""
 fi
 
+# Install BurntToast PowerShell module for Windows toast notifications (if powershell.exe available)
+if command -v powershell.exe &> /dev/null; then
+    echo "Installing BurntToast PowerShell module (for toast hook)..."
+    PS_CMD='if (-not (Get-Module -ListAvailable -Name BurntToast)) { Install-Module -Name BurntToast -Scope CurrentUser -Force -AllowClobber }'
+    if powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "$PS_CMD" >/dev/null 2>&1; then
+        echo "✓ BurntToast installed or already present"
+    else
+        echo "⚠️  Could not install BurntToast. Install manually in Windows PowerShell:"
+        echo "    powershell.exe -NoProfile -Command \"Install-Module -Name BurntToast -Scope CurrentUser -Force -AllowClobber\""
+    fi
+    echo ""
+else
+    echo "ℹ️  powershell.exe not found; skipping BurntToast install (toast hook disabled)"
+    echo ""
+fi
+
 # Install MCP runtime package globally (makes mcp-exec, mcp-generate available everywhere)
 echo "Installing MCP runtime package globally..."
 cd "$SCRIPT_DIR"
