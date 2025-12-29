@@ -14,6 +14,7 @@ Session continuity, token-efficient MCP execution, and agentic workflows for Cla
 - [MCP Code Execution](#mcp-code-execution)
 - [Continuity System](#continuity-system)
 - [Hooks System](#hooks-system)
+- [Notifications](#notifications) (Windows Toast, Telegram)
 - [Reasoning History](#reasoning-history)
 - [Braintrust Session Tracing](#braintrust-session-tracing-optional) + [Compound Learnings](#compound-learnings)
 - [Artifact Index](#artifact-index) (handoff search, outcome tracking)
@@ -999,6 +1000,77 @@ Hooks are configured in `.claude/settings.json`:
 
 ---
 
+## Notifications
+
+Get notified when Claude completes tasks or needs your attention. Two isolated notification channels:
+
+### Windows Toast (WSL)
+
+Desktop notifications via BurntToast PowerShell module.
+
+**Requires:**
+- WSL environment with `powershell.exe` accessible
+- BurntToast module: `powershell.exe -Command "Install-Module -Name BurntToast -Force"`
+
+**Location:** `~/.claude/hooks/show-toast.sh`
+
+**Features:**
+- Custom Claude icon (`~/.claude/cctoast-wsl/assets/claude.png`)
+- Path caching for performance
+- Automatic WSL → Windows path conversion
+
+### Telegram Bot
+
+Remote notifications via Telegram Bot API. Get notifications on your phone/desktop Telegram client.
+
+**Setup:**
+1. Create bot via [@BotFather](https://t.me/botfather) → get `TELEGRAM_BOT_TOKEN`
+2. Get your chat ID via [@userinfobot](https://t.me/userinfobot) → get `TELEGRAM_CHAT_ID`
+3. Add to `~/.claude/.env`:
+
+```bash
+TELEGRAM_ENABLED=true
+TELEGRAM_BOT_TOKEN=your_bot_token
+TELEGRAM_CHAT_ID=your_chat_id
+```
+
+**Location:** `.claude/hooks/send-telegram.sh`
+
+### Hook Events
+
+Both notifications trigger on:
+
+| Event | Message |
+|-------|---------|
+| **Notification** | "Waiting for your response" |
+| **Stop** | "Task completed" |
+
+### Manual Usage
+
+```bash
+# Windows Toast
+~/.claude/hooks/show-toast.sh --title "Test" --message "Hello"
+
+# Telegram
+.claude/hooks/send-telegram.sh --title "Test" --message "Hello"
+
+# Debug mode
+TELEGRAM_DEBUG=1 .claude/hooks/send-telegram.sh --stop-hook
+CCTOAST_DEBUG=1 ~/.claude/hooks/show-toast.sh --notification-hook
+```
+
+### Architecture
+
+```
+Hook Event (Notification/Stop)
+    ├── show-toast.sh      → Windows Desktop (BurntToast/PowerShell)
+    └── send-telegram.sh   → Telegram Bot API (curl)
+```
+
+Both channels are isolated - disabling one doesn't affect the other. Errors are logged silently to avoid disrupting Claude.
+
+---
+
 ## Reasoning History
 
 The system captures what was tried during development - build failures, fixes, experiments. This creates searchable memory across sessions.
@@ -1380,15 +1452,23 @@ src/runtime/         # MCP execution runtime
 
 ## Environment Variables
 
-Add to `.env`:
+Add to `~/.claude/.env`:
 
 ```bash
-# Required for paid services
+# Session tracing (optional)
+BRAINTRUST_API_KEY="sk-..."
+
+# MCP services (optional)
 GITHUB_PERSONAL_ACCESS_TOKEN="ghp_..."
 PERPLEXITY_API_KEY="pplx-..."
 FIRECRAWL_API_KEY="fc-..."
 MORPH_API_KEY="sk-..."
 NIA_API_KEY="nk_..."
+
+# Telegram notifications (optional)
+TELEGRAM_ENABLED=true
+TELEGRAM_BOT_TOKEN="your_bot_token"
+TELEGRAM_CHAT_ID="your_chat_id"
 ```
 
 Services without API keys still work:
