@@ -1,3 +1,8 @@
+---
+name: codebase-locator
+description: Locate files and components related to a feature or concept
+---
+
 # Codebase Locator Agent
 
 Locates files, directories, and components relevant to a feature or task. Like a super-powered Grep/Glob/LS.

@@ -1,3 +1,8 @@
+---
+name: codebase-analyzer
+description: Analyze codebase implementation details and data flow
+---
+
 # Codebase Analyzer Agent
 
 Analyzes codebase implementation details. Use when you need detailed information about specific components.
