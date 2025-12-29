@@ -125,3 +125,5 @@ pnpm-lock.yaml
 node_modules/
 workspace/
 .claude/settings.local.json
+
+docs/*

@@ -23,7 +23,7 @@
           },
           {
             "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/send-telegram.sh --notification-hook"
+            "command": "$HOME/.claude/hooks/send-telegram.sh --notification-hook"
           }
         ]
       }
@@ -110,7 +110,7 @@
           },
           {
             "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/send-telegram.sh --stop-hook"
+            "command": "$HOME/.claude/hooks/send-telegram.sh --stop-hook"
           },
           {
             "type": "command",
