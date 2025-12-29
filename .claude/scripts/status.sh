@@ -58,22 +58,24 @@ fi
 # ─────────────────────────────────────────────────────────────────
 # CONTINUITY - Last done + Current focus (what you'd forget)
 # ─────────────────────────────────────────────────────────────────
-ledger=$(ls -t "$project_dir"/CONTINUITY_CLAUDE-*.md 2>/dev/null | head -1)
+# Check both locations: thoughts/ledgers/ (standard) and root (legacy)
+ledger=$(ls -t "$project_dir"/thoughts/ledgers/CONTINUITY_CLAUDE-*.md "$project_dir"/CONTINUITY_CLAUDE-*.md 2>/dev/null | head -1)
 last_done=""
 now_focus=""
 
 if [[ -n "$ledger" ]]; then
-    # Get the most recent "Done:" item (last one in the list)
-    last_done=$(grep -E '^\s*-\s*Done:' "$ledger" 2>/dev/null | \
+    # Get the most recent completed item (last [x] checkbox)
+    last_done=$(grep -E '^\s*-\s*\[x\]' "$ledger" 2>/dev/null | \
         tail -1 | \
-        sed 's/^[[:space:]]*-[[:space:]]*Done:[[:space:]]*//')
+        sed 's/^[[:space:]]*-[[:space:]]*\[x\][[:space:]]*//')
 
     # Truncate
     [[ ${#last_done} -gt 20 ]] && last_done="${last_done:0:18}.."
 
-    # Get "Now:" item
+    # Get "Now:" item and strip the [→] marker if present
     now_focus=$(grep -E '^\s*-\s*Now:' "$ledger" 2>/dev/null | \
         sed 's/^[[:space:]]*-[[:space:]]*Now:[[:space:]]*//' | \
+        sed 's/^\[→\][[:space:]]*//' | \
         head -1)
 
     # Truncate based on whether we have last_done
