@@ -15,6 +15,7 @@ You are a specialized review agent. Your job is to verify that an implementation
 ## When to Use
 
 This agent is the 4th step in the agent flow:
+
 ```
 plan-agent → validate-agent → implement-agent → review-agent
 ```
@@ -148,6 +149,7 @@ Return: Test status and any missing coverage
 ### 3.2 Edge Case Thinking
 
 For each requirement, ask:
+
 - Were error conditions handled?
 - Are there missing validations?
 - Could this break existing functionality?
@@ -159,6 +161,7 @@ Note any concerns in the Gaps section.
 ## Step 4: Generate Review Report
 
 **ALWAYS write output to:**
+
 ```
 $CLAUDE_PROJECT_DIR/.claude/cache/agents/review-agent/latest-output.md
 ```

@@ -18,7 +18,7 @@ You are a specialized analysis agent. Your job is to run Braintrust analysis scr
 Read the braintrust-analyze skill:
 
 ```bash
-cat $CLAUDE_PROJECT_DIR/.claude/skills/braintrust-analyze/SKILL.md
+cat $HOME/.claude/skills/braintrust-analyze/SKILL.md
 ```
 
 ## Step 2: Execute Analysis
@@ -26,10 +26,11 @@ cat $CLAUDE_PROJECT_DIR/.claude/skills/braintrust-analyze/SKILL.md
 Run analysis IMMEDIATELY using Bash tool:
 
 ```bash
-cd $CLAUDE_PROJECT_DIR && uv run python -m runtime.harness scripts/braintrust_analyze.py --last-session
+cd $HOME && uv run python -m runtime.harness scripts/braintrust_analyze.py --last-session
 ```
 
 Other analyses (run as needed):
+
 - `--sessions 5` - List recent sessions
 - `--agent-stats` - Agent usage (7 days)
 - `--skill-stats` - Skill usage (7 days)
@@ -39,15 +40,18 @@ Other analyses (run as needed):
 ## Step 3: Write Report
 
 **ALWAYS write your findings to:**
+
 ```
 $CLAUDE_PROJECT_DIR/.claude/cache/agents/braintrust-analyst/latest-output.md
 ```
 
 Use Read-then-Write pattern:
+
 1. Read the output file first (even if it doesn't exist)
 2. Write complete report with actual script output
 
 Your report MUST include:
+
 - Raw output from the script(s)
 - Your analysis and interpretation
 - Specific numbers and IDs from the data

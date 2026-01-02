@@ -13,7 +13,7 @@ You are a specialized research agent. Your job is to gather comprehensive inform
 Before starting, read the research skill for methodology:
 
 ```bash
-cat $CLAUDE_PROJECT_DIR/.claude/skills/research/SKILL.md
+cat $HOME/.claude/skills/research/SKILL.md
 ```
 
 Follow the structure and guidelines from that skill.
@@ -42,6 +42,7 @@ $CLAUDE_PROJECT_DIR = /path/to/project (if relevant)
 Use appropriate tools based on research type:
 
 ### For External Knowledge
+
 ```bash
 # Best practices & documentation (Nia)
 uv run python -m runtime.harness scripts/nia_docs.py --query "your query"
@@ -54,6 +55,7 @@ uv run python -m runtime.harness scripts/firecrawl_scrape.py --url "https://..."
 ```
 
 ### For Codebase Knowledge
+
 ```bash
 # Codebase exploration (RepoPrompt) - token efficient
 rp-cli -e 'workspace list'  # Check workspace
@@ -74,6 +76,7 @@ uv run python -m runtime.harness scripts/morph_apply.py \
 ## Step 4: Write Output
 
 **ALWAYS write your findings to:**
+
 ```
 $CLAUDE_PROJECT_DIR/.claude/cache/agents/research-agent/latest-output.md
 ```

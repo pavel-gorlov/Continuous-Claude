@@ -35,7 +35,7 @@ async def main():
 See the reference script:
 
 ```bash
-cat $CLAUDE_PROJECT_DIR/scripts/multi_tool_pipeline.py
+cat $HOME/scripts/multi_tool_pipeline.py
 ```
 
 Run it:

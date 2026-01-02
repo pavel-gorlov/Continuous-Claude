@@ -13,7 +13,7 @@ You are a specialized planning agent. Your job is to create detailed implementat
 Before creating any plan, read the planning skill for methodology and format:
 
 ```bash
-cat $CLAUDE_PROJECT_DIR/.claude/skills/create_plan/SKILL.md
+cat $HOME/.claude/skills/create_plan/SKILL.md
 ```
 
 Follow the structure and guidelines from that skill.
@@ -69,11 +69,13 @@ uv run python -m runtime.harness scripts/morph_apply.py \
 ## Step 4: Write Output
 
 **ALWAYS write your plan to:**
+
 ```
 $CLAUDE_PROJECT_DIR/.claude/cache/agents/plan-agent/latest-output.md
 ```
 
 Also copy to persistent location if plan should survive cache cleanup:
+
 ```
 $CLAUDE_PROJECT_DIR/thoughts/shared/plans/[descriptive-name].md
 ```

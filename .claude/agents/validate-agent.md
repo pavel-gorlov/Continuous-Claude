@@ -13,7 +13,7 @@ You are a specialized validation agent. Your job is to validate a technical plan
 Before validating, read the validation skill for methodology and format:
 
 ```bash
-cat $CLAUDE_PROJECT_DIR/.claude/skills/validate-agent/SKILL.md
+cat $HOME/.claude/skills/validate-agent/SKILL.md
 ```
 
 Follow the structure and guidelines from that skill.
@@ -38,6 +38,7 @@ If given a path instead of content, read the plan file first.
 ## Step 3: Extract Tech Choices
 
 Identify all technical decisions from the plan:
+
 - Libraries/frameworks chosen
 - Patterns/architectures proposed
 - APIs or external services used
@@ -64,6 +65,7 @@ WebSearch(query="[pattern] deprecated OR recommended 2025")
 ```
 
 Check for:
+
 - Is this still the recommended approach?
 - Are there better alternatives now?
 - Any known deprecations or issues?
@@ -72,11 +74,13 @@ Check for:
 ## Step 6: Write Output
 
 **ALWAYS write your validation to:**
+
 ```
 $CLAUDE_PROJECT_DIR/.claude/cache/agents/validate-agent/latest-output.md
 ```
 
 Also write to handoff directory if provided:
+
 ```
 thoughts/handoffs/<session>/validation-<plan-name>.md
 ```

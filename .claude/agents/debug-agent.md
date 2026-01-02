@@ -13,7 +13,7 @@ You are a specialized debugging agent. Your job is to investigate issues, trace 
 Before starting, read the debug skill for methodology:
 
 ```bash
-cat $CLAUDE_PROJECT_DIR/.claude/skills/debug/SKILL.md
+cat $HOME/.claude/skills/debug/SKILL.md
 ```
 
 Follow the structure and guidelines from that skill.
@@ -39,6 +39,7 @@ $CLAUDE_PROJECT_DIR = /path/to/project
 ## Step 3: Investigate with MCP Tools
 
 ### Codebase Exploration
+
 ```bash
 # Codebase exploration (RepoPrompt) - trace code flow
 rp-cli -e 'workspace list'  # Check workspace
@@ -60,6 +61,7 @@ uv run python -m runtime.harness scripts/ast_grep_find.py --pattern "console.err
 ```
 
 ### External Resources
+
 ```bash
 # GitHub issues (check for known issues)
 uv run python -m runtime.harness scripts/github_search.py --query "similar error" --type issues
@@ -69,6 +71,7 @@ uv run python -m runtime.harness scripts/nia_docs.py --query "library expected b
 ```
 
 ### Git History
+
 ```bash
 # Check recent changes
 git log --oneline -20
@@ -81,6 +84,7 @@ git log -p --all -S 'search_term' -- '*.ts'
 ## Step 4: Write Output
 
 **ALWAYS write your findings to:**
+
 ```
 $CLAUDE_PROJECT_DIR/.claude/cache/agents/debug-agent/latest-output.md
 ```
