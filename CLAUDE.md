@@ -6,6 +6,34 @@
 
 **Dual-Mode MCP pattern**: Reusable scripts (PREFERRED, 99.6% reduction) with CLI arguments, OR direct script writing (98.7% reduction) for novel tasks. Progressive disclosure via filesystem. Multi-transport support (stdio + SSE + HTTP).
 
+## Development Workflow (CRITICAL)
+
+**NEVER edit `~/.claude/` directly.** All bug fixes and feature work happen in THIS project.
+
+```
+1. Edit files in this repo     →  .claude/hooks/, .claude/skills/, scripts/, etc.
+2. Sync to global              →  ./install-global.sh
+3. Test in any project         →  Changes now active globally
+```
+
+**Why:**
+- `~/.claude/` is a deployment target, not source of truth
+- This repo is version-controlled, `~/.claude/` is not
+- `install-global.sh` handles copying, backups, and setup
+
+**Workflow for fixes:**
+```bash
+# 1. Make changes in this project
+vim .claude/hooks/some-hook.ts
+
+# 2. Sync to global (before testing)
+./install-global.sh --yes
+
+# 3. Test in target project
+cd /path/to/other/project
+# hooks/skills now use updated code
+```
+
 ## Execution Modes
 
 ### PRIMARY: Scripts-Based Execution (>2 tools, complex logic)
