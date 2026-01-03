@@ -30,21 +30,21 @@ Use the MCP scripts via Bash:
 
 **For library documentation (Nia):**
 ```bash
-uv run python -m runtime.harness scripts/nia_docs.py \
+mcp-exec $HOME/.claude/scripts/nia_docs.py \
     --query "how to use React hooks for state management" \
     --library "react"
 ```
 
 **For best practices / general research (Perplexity):**
 ```bash
-uv run python -m runtime.harness scripts/perplexity_search.py \
+mcp-exec $HOME/.claude/scripts/perplexity_search.py \
     --query "best practices for implementing OAuth2 in Node.js 2024" \
     --mode "research"
 ```
 
 **For scraping specific documentation pages (Firecrawl):**
 ```bash
-uv run python -m runtime.harness scripts/firecrawl_scrape.py \
+mcp-exec $HOME/.claude/scripts/firecrawl_scrape.py \
     --url "https://docs.example.com/api/authentication"
 ```
 

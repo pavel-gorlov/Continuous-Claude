@@ -62,7 +62,7 @@ Follow the Red-Green-Refactor cycle for each piece of functionality:
 9. **Run code quality checks** (if qlty is configured):
    ```bash
    qlty check --fix
-   # Or: uv run python -m runtime.harness scripts/qlty_check.py --fix
+   # Or: mcp-exec $HOME/.claude/scripts/qlty_check.py --fix
    ```
 
 **TDD Guidelines:**
@@ -84,7 +84,7 @@ For implementing code changes, choose based on file size and context:
 **Using morph-apply (recommended for large files):**
 ```bash
 # Fast edit without reading file first
-uv run python -m runtime.harness scripts/morph_apply.py \
+mcp-exec $HOME/.claude/scripts/morph_apply.py \
     --file "src/auth.ts" \
     --instruction "I will add null check for user" \
     --code_edit "// ... existing code ...

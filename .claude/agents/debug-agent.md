@@ -48,26 +48,26 @@ rp-cli -e 'search "error message" --context-lines 5'  # Find error origin
 rp-cli -e 'read file.ts --start-line 100 --limit 50'  # Read specific sections
 
 # Fast code search (Morph/WarpGrep) - find patterns quickly
-uv run python -m runtime.harness scripts/morph_search.py --query "function_name" --path "."
+mcp-exec $HOME/.claude/scripts/morph_search.py --query "function_name" --path "."
 
 # Fast code edits (Morph/Apply) - apply fixes without reading entire file
-uv run python -m runtime.harness scripts/morph_apply.py \
+mcp-exec $HOME/.claude/scripts/morph_apply.py \
     --file "path/to/file.py" \
     --instruction "Fix the bug by updating the validation logic" \
     --code_edit "// ... existing code ...\nfixed_code_here\n// ... existing code ..."
 
 # AST-based search (ast-grep) - find code patterns
-uv run python -m runtime.harness scripts/ast_grep_find.py --pattern "console.error(\$MSG)"
+mcp-exec $HOME/.claude/scripts/ast_grep_find.py --pattern "console.error(\$MSG)"
 ```
 
 ### External Resources
 
 ```bash
 # GitHub issues (check for known issues)
-uv run python -m runtime.harness scripts/github_search.py --query "similar error" --type issues
+mcp-exec $HOME/.claude/scripts/github_search.py --query "similar error" --type issues
 
 # Documentation (understand expected behavior)
-uv run python -m runtime.harness scripts/nia_docs.py --query "library expected behavior"
+mcp-exec $HOME/.claude/scripts/nia_docs.py --query "library expected behavior"
 ```
 
 ### Git History

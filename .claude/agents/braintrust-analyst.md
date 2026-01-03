@@ -26,7 +26,7 @@ cat $HOME/.claude/skills/braintrust-analyze/SKILL.md
 Run analysis IMMEDIATELY using Bash tool:
 
 ```bash
-cd $HOME && uv run python -m runtime.harness scripts/braintrust_analyze.py --last-session
+mcp-exec $HOME/.claude/scripts/braintrust_analyze.py --last-session
 ```
 
 Other analyses (run as needed):

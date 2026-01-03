@@ -22,7 +22,7 @@ Run the appropriate command based on user request:
 
 ```bash
 cd $CLAUDE_PROJECT_DIR
-uv run python -m runtime.harness scripts/braintrust_analyze.py --last-session
+mcp-exec $HOME/.claude/scripts/braintrust_analyze.py --last-session
 ```
 
 ## Step 3: Write Report

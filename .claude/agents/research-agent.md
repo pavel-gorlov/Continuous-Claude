@@ -45,13 +45,13 @@ Use appropriate tools based on research type:
 
 ```bash
 # Best practices & documentation (Nia)
-uv run python -m runtime.harness scripts/nia_docs.py --query "your query"
+mcp-exec $HOME/.claude/scripts/nia_docs.py --query "your query"
 
 # Web research (Perplexity)
-uv run python -m runtime.harness scripts/perplexity_search.py --query "your query"
+mcp-exec $HOME/.claude/scripts/perplexity_search.py --query "your query"
 
 # Web scraping (Firecrawl) - for specific URLs
-uv run python -m runtime.harness scripts/firecrawl_scrape.py --url "https://..."
+mcp-exec $HOME/.claude/scripts/firecrawl_scrape.py --url "https://..."
 ```
 
 ### For Codebase Knowledge
@@ -64,10 +64,10 @@ rp-cli -e 'search "pattern" --max-results 20'  # Search
 rp-cli -e 'read file.ts --start-line 50 --limit 30'  # Slices
 
 # Fast code search (Morph/WarpGrep)
-uv run python -m runtime.harness scripts/morph_search.py --query "pattern" --path "."
+mcp-exec $HOME/.claude/scripts/morph_search.py --query "pattern" --path "."
 
 # Fast code edits (Morph/Apply) - apply changes based on research
-uv run python -m runtime.harness scripts/morph_apply.py \
+mcp-exec $HOME/.claude/scripts/morph_apply.py \
     --file "path/to/file.py" \
     --instruction "Description of change" \
     --code_edit "// ... existing code ...\nnew_code\n// ... existing code ..."

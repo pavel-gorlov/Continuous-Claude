@@ -50,14 +50,13 @@ cd /path/to/other/project
 2. `cat scripts/{script}.py` - Read script docstring and CLI arguments
 3. Execute with args (DO NOT edit file):
    ```bash
-   # Example: Web scraping
+   # In this project:
    uv run python -m runtime.harness scripts/firecrawl_scrape.py \
        --url "https://example.com"
 
-   # Example: Multi-tool pipeline
-   uv run python -m runtime.harness scripts/multi_tool_pipeline.py \
-       --repo-path "." \
-       --max-commits 5
+   # From ANY directory (after ./install-global.sh):
+   mcp-exec ~/.claude/scripts/firecrawl_scrape.py \
+       --url "https://example.com"
    ```
 
 **Example Scripts:**
@@ -155,7 +154,9 @@ scripts/SCRIPTS.md                          # Complete framework guide
 ### Scripts-Based (PREFERRED)
 1. Discover: `ls scripts/` → see available script templates
 2. Read: `cat scripts/firecrawl_scrape.py` → see CLI arguments and USAGE
-3. Execute: `uv run python -m runtime.harness scripts/firecrawl_scrape.py --url "https://example.com"`
+3. Execute:
+   - **In project:** `uv run python -m runtime.harness scripts/firecrawl_scrape.py --url "..."`
+   - **Global:** `mcp-exec ~/.claude/scripts/firecrawl_scrape.py --url "..."`
 4. Change parameters via CLI args - edit scripts freely to fix bugs or improve logic
 5. Create your own scripts for your specific workflows using the template
 

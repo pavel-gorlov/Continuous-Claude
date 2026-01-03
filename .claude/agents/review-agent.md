@@ -40,13 +40,13 @@ Read the plan completely - extract all requirements/phases.
 
 ```bash
 # Get last session summary
-uv run python -m runtime.harness scripts/braintrust_analyze.py --last-session
+mcp-exec $HOME/.claude/scripts/braintrust_analyze.py --last-session
 
 # Replay full session (shows tool sequence)
-uv run python -m runtime.harness scripts/braintrust_analyze.py --replay <session-id>
+mcp-exec $HOME/.claude/scripts/braintrust_analyze.py --replay <session-id>
 
 # Detect any loops or issues
-uv run python -m runtime.harness scripts/braintrust_analyze.py --detect-loops
+mcp-exec $HOME/.claude/scripts/braintrust_analyze.py --detect-loops
 ```
 
 ### 1.3 Get Git Diff
@@ -78,13 +78,13 @@ uv run mypy src/ 2>&1 || echo "type check failed"
 
 ```bash
 # Lint changed files
-uv run python -m runtime.harness scripts/qlty_check.py
+mcp-exec $HOME/.claude/scripts/qlty_check.py
 
 # Get complexity metrics
-uv run python -m runtime.harness scripts/qlty_check.py --metrics
+mcp-exec $HOME/.claude/scripts/qlty_check.py --metrics
 
 # Find code smells
-uv run python -m runtime.harness scripts/qlty_check.py --smells
+mcp-exec $HOME/.claude/scripts/qlty_check.py --smells
 ```
 
 Note: If qlty is not initialized, skip with note in report.

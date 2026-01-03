@@ -27,4 +27,13 @@ Examples:
 - `perplexity__perplexity_ask`
 
 ## Testing
-Test with: `uv run python -m runtime.harness scripts/<script>.py --help`
+
+**In this project:**
+```bash
+uv run python -m runtime.harness scripts/<script>.py --help
+```
+
+**From any directory (after install-global.sh):**
+```bash
+mcp-exec ~/.claude/scripts/<script>.py --help
+```

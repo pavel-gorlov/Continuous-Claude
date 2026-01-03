@@ -41,7 +41,7 @@ cat $HOME/scripts/multi_tool_pipeline.py
 Run it:
 
 ```bash
-uv run python -m runtime.harness scripts/multi_tool_pipeline.py \
+mcp-exec $HOME/.claude/scripts/multi_tool_pipeline.py \
     --repo-path "." \
     --max-commits 5
 ```

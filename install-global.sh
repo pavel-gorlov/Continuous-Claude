@@ -122,12 +122,17 @@ echo ""
 # Install MCP runtime package globally (makes mcp-exec, mcp-generate available everywhere)
 echo "Installing MCP runtime package globally..."
 cd "$SCRIPT_DIR"
+
 uv tool install . --force --quiet 2>/dev/null || {
     echo "⚠️  Could not install MCP package globally. Run manually:"
     echo "   cd $SCRIPT_DIR && uv tool install . --force"
 }
+
 echo "✓ MCP commands installed: mcp-exec, mcp-generate, mcp-discover"
 echo "  (available in ~/.local/bin/)"
+echo ""
+echo "  Usage from ANY directory:"
+echo "    mcp-exec ~/.claude/scripts/braintrust_analyze.py --last-session"
 echo ""
 
 # Create global dir if needed
