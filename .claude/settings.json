@@ -1,7 +1,7 @@
 {
   "statusLine": {
     "type": "command",
-    "command": "python3 $CLAUDE_PROJECT_DIR/.claude/scripts/status.py"
+    "command": "python $HOME/.claude/scripts/status.py"
   },
   "hooks": {
     "PreToolUse": [
@@ -9,7 +9,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/pre-tool-use-broadcast.mjs"
+            "command": "node $HOME/.claude/hooks/dist/pre-tool-use-broadcast.mjs"
           }
         ]
       },
@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/path-rules.mjs",
+            "command": "node $HOME/.claude/hooks/dist/path-rules.mjs",
             "timeout": 5
           }
         ]
@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/tldr-read-enforcer.mjs",
+            "command": "node $HOME/.claude/hooks/dist/tldr-read-enforcer.mjs",
             "timeout": 20
           }
         ]
@@ -38,7 +38,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/smart-search-router.mjs",
+            "command": "node $HOME/.claude/hooks/dist/smart-search-router.mjs",
             "timeout": 10
           }
         ]
@@ -48,12 +48,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/tldr-context-inject.mjs",
+            "command": "node $HOME/.claude/hooks/dist/tldr-context-inject.mjs",
             "timeout": 30
           },
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/arch-context-inject.mjs",
+            "command": "node $HOME/.claude/hooks/dist/arch-context-inject.mjs",
             "timeout": 30
           }
         ]
@@ -63,17 +63,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/file-claims.mjs",
+            "command": "node $HOME/.claude/hooks/dist/file-claims.mjs",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/edit-context-inject.mjs",
+            "command": "node $HOME/.claude/hooks/dist/edit-context-inject.mjs",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/signature-helper.mjs",
+            "command": "node $HOME/.claude/hooks/dist/signature-helper.mjs",
             "timeout": 5
           }
         ]
@@ -98,12 +98,12 @@
           },
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/session-register.mjs",
+            "command": "node $HOME/.claude/hooks/dist/session-register.mjs",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "python3 .claude/hooks/hook_launcher.py session-symbol-index",
+            "command": "python $HOME/.claude/hooks/hook_launcher.py session-symbol-index",
             "timeout": 5
           }
         ]
@@ -122,12 +122,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/session-start-tldr-cache.mjs",
+            "command": "node $HOME/.claude/hooks/dist/session-start-tldr-cache.mjs",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/session-start-dead-code.mjs",
+            "command": "node $HOME/.claude/hooks/dist/session-start-dead-code.mjs",
             "timeout": 30
           }
         ]
@@ -142,17 +142,17 @@
           },
           {
             "type": "command",
-            "command": "python3 .claude/hooks/hook_launcher.py premortem-suggest",
+            "command": "python $HOME/.claude/hooks/hook_launcher.py premortem-suggest",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/memory-awareness.mjs",
+            "command": "node $HOME/.claude/hooks/dist/memory-awareness.mjs",
             "timeout": 10
           },
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/impact-refactor.mjs",
+            "command": "node $HOME/.claude/hooks/dist/impact-refactor.mjs",
             "timeout": 10
           },
           {
@@ -173,17 +173,17 @@
           },
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/compiler-in-the-loop.mjs",
+            "command": "node $HOME/.claude/hooks/dist/compiler-in-the-loop.mjs",
             "timeout": 30
           },
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/post-edit-notify.mjs",
+            "command": "node $HOME/.claude/hooks/dist/post-edit-notify.mjs",
             "timeout": 5
           },
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/post-edit-diagnostics.mjs",
+            "command": "node $HOME/.claude/hooks/dist/post-edit-diagnostics.mjs",
             "timeout": 10
           }
         ]
@@ -202,7 +202,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .claude/hooks/hook_launcher.py post-tool-use-tracker",
+            "command": "python $HOME/.claude/hooks/hook_launcher.py post-tool-use-tracker",
             "timeout": 120
           }
         ]
@@ -221,7 +221,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/import-validator.mjs",
+            "command": "node $HOME/.claude/hooks/dist/import-validator.mjs",
             "timeout": 5
           }
         ]
@@ -231,7 +231,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/import-error-detector.mjs",
+            "command": "node $HOME/.claude/hooks/dist/import-error-detector.mjs",
             "timeout": 5
           }
         ]
@@ -242,15 +242,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .claude/hooks/hook_launcher.py auto-handoff-stop"
+            "command": "python $HOME/.claude/hooks/hook_launcher.py auto-handoff-stop"
           },
           {
             "type": "command",
-            "command": "bash $CLAUDE_PROJECT_DIR/.claude/plugins/braintrust-tracing/hooks/stop_hook.sh"
+            "command": "bash $HOME/.claude/plugins/braintrust-tracing/hooks/stop_hook.sh"
           },
           {
             "type": "command",
-            "command": "node $CLAUDE_PROJECT_DIR/.claude/hooks/dist/compiler-in-the-loop-stop.mjs"
+            "command": "node $HOME/.claude/hooks/dist/compiler-in-the-loop-stop.mjs"
           }
         ]
       }
