@@ -20,6 +20,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+# Ensure project root is in sys.path for imports when run as a script
+# This handles both `python -m scripts.setup.wizard` and `python scripts/setup/wizard.py`
+_this_file = Path(__file__).resolve()
+_project_root = _this_file.parent.parent.parent  # scripts/setup/wizard.py -> opc/
+if str(_project_root) not in sys.path:
+    sys.path.insert(0, str(_project_root))
+
 try:
     from rich.console import Console
     from rich.panel import Panel
