@@ -89,6 +89,20 @@
         ]
       }
     ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/show-toast.sh --notification-hook"
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/send-telegram.sh --notification-hook"
+          }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "hooks": [
@@ -243,6 +257,24 @@
             "type": "command",
             "command": "uv run $HOME/.claude/hooks/hook_launcher.py auto-handoff-stop"
           },
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/show-toast.sh --stop-hook"
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/send-telegram.sh --stop-hook"
+          },
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/plugins/braintrust-tracing/hooks/stop_hook.sh"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
           {
             "type": "command",
             "command": "bash $HOME/.claude/plugins/braintrust-tracing/hooks/stop_hook.sh"

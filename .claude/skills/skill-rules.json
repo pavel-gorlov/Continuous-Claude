@@ -17,7 +17,13 @@
                     "make permanent",
                     "extract patterns",
                     "create skill from",
-                    "create rule from"
+                    "create rule from",
+                    "извлеки паттерны",
+                    "улучши настройки",
+                    "создай скилл из",
+                    "создай правило из",
+                    "какие паттерны",
+                    "сделай постоянным"
                 ],
                 "intentPatterns": [
                     "(compound|consolidate|extract).*?learning",
@@ -67,7 +73,12 @@
                     "SessionEnd not",
                     "PostToolUse not",
                     "hook doesn't run",
-                    "why didn't hook"
+                    "why didn't hook",
+                    "хук не работает",
+                    "хук не срабатывает",
+                    "отладь хук",
+                    "почему хук не",
+                    "хук не запускается"
                 ],
                 "intentPatterns": [
                     "hook.*(not|isn't|doesn't|didn't).*(fire|work|run|trigger)",
@@ -105,7 +116,14 @@
                     "hook format",
                     "settings.json hooks",
                     "register hook",
-                    "hook matcher"
+                    "hook matcher",
+                    "создай хук",
+                    "напиши хук",
+                    "новый хук",
+                    "документация по хукам",
+                    "справка по хукам",
+                    "как создать хук",
+                    "зарегистрировать хук"
                 ],
                 "intentPatterns": [
                     "(create|write|build|make|develop).*?hook",
@@ -134,7 +152,14 @@
                     "continue phase",
                     "orchestrate",
                     "agent orchestration",
-                    "PLAN-"
+                    "PLAN-",
+                    "реализуй план",
+                    "выполни план",
+                    "следуй плану",
+                    "запусти план",
+                    "начни фазу",
+                    "продолжи фазу",
+                    "оркестрация"
                 ],
                 "intentPatterns": [
                     "(implement|execute|follow|run).*?plan",
@@ -159,7 +184,15 @@
                     "make commit",
                     "push",
                     "push to github",
-                    "push changes"
+                    "push changes",
+                    "коммит",
+                    "закоммить",
+                    "сделай коммит",
+                    "пуш",
+                    "запуш",
+                    "запушь",
+                    "сохрани изменения",
+                    "пушни"
                 ],
                 "intentPatterns": [
                     "(commit|save|push).*?(changes|work|code)",
@@ -181,7 +214,12 @@
                     "pull request description",
                     "write pr",
                     "create pr",
-                    "pr body"
+                    "pr body",
+                    "опиши pr",
+                    "описание pr",
+                    "описание пулл реквеста",
+                    "создай pr",
+                    "напиши pr"
                 ],
                 "intentPatterns": [
                     "(create|write|generate|describe).*?(pr|pull request)",
@@ -304,7 +342,16 @@
                     "end session",
                     "switching tasks",
                     "pick this up later",
-                    "wrap up"
+                    "wrap up",
+                    "создай хэндофф",
+                    "хэндофф",
+                    "закончил на сегодня",
+                    "завершить сессию",
+                    "закончим сессию",
+                    "конец сессии",
+                    "переключаюсь на другое",
+                    "продолжу потом",
+                    "заверши работу"
                 ],
                 "intentPatterns": [
                     "(create|make|write).*?handoff",
@@ -328,7 +375,13 @@
                     "resume work",
                     "continue work",
                     "pick up where",
-                    "new session"
+                    "new session",
+                    "продолжи с хэндоффа",
+                    "возобнови работу",
+                    "продолжи работу",
+                    "где остановились",
+                    "новая сессия",
+                    "продолжить с того места"
                 ],
                 "intentPatterns": [
                     "(resume|continue|pick up).*?(handoff|work|session)",
@@ -354,7 +407,14 @@
                     "running low",
                     "low on context",
                     "context warning",
-                    "about to compact"
+                    "about to compact",
+                    "леджер",
+                    "обнови леджер",
+                    "сохрани состояние",
+                    "перед компакт",
+                    "перед clear",
+                    "контекст заканчивается",
+                    "мало контекста"
                 ],
                 "intentPatterns": [
                     "(save|preserve|update).*?(state|ledger)",
@@ -379,7 +439,12 @@
                     "skill rules",
                     "hook system",
                     "skill development",
-                    "skill-rules.json"
+                    "skill-rules.json",
+                    "система скиллов",
+                    "создай скилл",
+                    "добавь скилл",
+                    "триггеры скиллов",
+                    "разработка скиллов"
                 ],
                 "intentPatterns": [
                     "(how do|how does|explain).*?skill",
@@ -402,7 +467,11 @@
                     "github issue",
                     "pull request",
                     "PR",
-                    "repository"
+                    "repository",
+                    "поиск на github",
+                    "найди репо",
+                    "github issue",
+                    "репозиторий"
                 ],
                 "intentPatterns": [
                     "(search|find|look.*?up).*?(github|repo|code|issue|PR)",
@@ -424,7 +493,12 @@
                     "get page",
                     "crawl",
                     "extract from url",
-                    "firecrawl"
+                    "firecrawl",
+                    "спарси",
+                    "спарсить",
+                    "получи страницу",
+                    "скачай страницу",
+                    "извлеки из url"
                 ],
                 "intentPatterns": [
                     "(scrape|fetch|get|crawl).*?(url|page|website|site)",
@@ -445,7 +519,13 @@
                     "API reference",
                     "how to use",
                     "package docs",
-                    "nia"
+                    "nia",
+                    "документация",
+                    "доки",
+                    "документация библиотеки",
+                    "API справка",
+                    "как использовать",
+                    "справка по пакету"
                 ],
                 "intentPatterns": [
                     "(get|find|show|look.*?up).*?(docs|documentation)",
@@ -470,7 +550,13 @@
                     "find all calls",
                     "find all usages",
                     "find all functions",
-                    "replace all"
+                    "replace all",
+                    "найди все вызовы",
+                    "найди все использования",
+                    "найди все функции",
+                    "рефакторинг",
+                    "замени везде",
+                    "структурный поиск"
                 ],
                 "intentPatterns": [
                     "(find|search).*?(pattern|all.*?calls|all.*?uses|all.*?functions)",
@@ -492,7 +578,12 @@
                     "file tree",
                     "code context",
                     "code structure",
-                    "signatures"
+                    "signatures",
+                    "структура кодовой базы",
+                    "дерево файлов",
+                    "контекст кода",
+                    "структура кода",
+                    "сигнатуры"
                 ],
                 "intentPatterns": [
                     "(explore|show|get).*?(codebase|structure|tree)",
@@ -523,7 +614,15 @@
                     "past work",
                     "similar work",
                     "search handoffs",
-                    "artifact index"
+                    "artifact index",
+                    "что пробовали",
+                    "прошлые попытки",
+                    "прошлые решения",
+                    "похожая проблема",
+                    "делали раньше",
+                    "в прошлый раз",
+                    "что работало",
+                    "что не работало"
                 ],
                 "intentPatterns": [
                     "(recall|search|find).*?(reasoning|attempts|decisions|precedent|handoffs)",
@@ -551,7 +650,13 @@
                     "find in code",
                     "search for",
                     "find text",
-                    "find string"
+                    "find string",
+                    "найди в коде",
+                    "поиск по коду",
+                    "найди текст",
+                    "найди строку",
+                    "грепни",
+                    "поищи"
                 ],
                 "intentPatterns": [
                     "(search|find|grep).*?(code|codebase|files|text|string)",
@@ -576,7 +681,11 @@
                     "code edit",
                     "smart edit",
                     "apply changes",
-                    "batch edit"
+                    "batch edit",
+                    "быстрое редактирование",
+                    "редактируй файл",
+                    "примени изменения",
+                    "массовое редактирование"
                 ],
                 "intentPatterns": [
                     "(fast|quick|smart).*?edit",
@@ -600,7 +709,14 @@
                     "look up",
                     "current information",
                     "latest",
-                    "research topic"
+                    "research topic",
+                    "веб поиск",
+                    "поиск в интернете",
+                    "найди в интернете",
+                    "загугли",
+                    "актуальная информация",
+                    "последние новости",
+                    "исследуй тему"
                 ],
                 "intentPatterns": [
                     "(search|look up|find).*?(web|online|internet)",
@@ -628,7 +744,16 @@
                     "complexity",
                     "code smells",
                     "format code",
-                    "check code"
+                    "check code",
+                    "качество кода",
+                    "линт",
+                    "линтинг",
+                    "проверь код",
+                    "проверка качества",
+                    "автофикс",
+                    "метрики кода",
+                    "сложность",
+                    "отформатируй код"
                 ],
                 "intentPatterns": [
                     "(check|lint|analyze).*?(code|quality)",
@@ -659,7 +784,14 @@
                     "token usage",
                     "session replay",
                     "last session",
-                    "weekly summary"
+                    "weekly summary",
+                    "анализ сессии",
+                    "проанализируй сессию",
+                    "какие агенты",
+                    "какие скиллы",
+                    "статистика агентов",
+                    "использование токенов",
+                    "прошлая сессия"
                 ],
                 "intentPatterns": [
                     "analyze.*(session|braintrust|logs)",
@@ -690,7 +822,15 @@
                     "just cloned",
                     "just started",
                     "initialize project",
-                    "set up project"
+                    "set up project",
+                    "онбординг",
+                    "новый проект",
+                    "ознакомься с проектом",
+                    "первый раз",
+                    "изучи проект",
+                    "разберись в проекте",
+                    "только склонировал",
+                    "инициализируй проект"
                 ],
                 "intentPatterns": [
                     "(onboard|familiarize).*?(me|project|codebase)",
@@ -1924,7 +2064,16 @@
                     "explain",
                     "document",
                     "codebase",
-                    "architecture"
+                    "architecture",
+                    "исследуй",
+                    "разберись",
+                    "узнай",
+                    "собери информацию",
+                    "лучшие практики",
+                    "как лучше",
+                    "объясни",
+                    "задокументируй",
+                    "архитектура"
                 ],
                 "intentPatterns": [
                     "(research|investigate|explore).*?(topic|approach|options)",
@@ -1960,7 +2109,16 @@
                     "greenfield",
                     "new project",
                     "start fresh",
-                    "from scratch"
+                    "from scratch",
+                    "создай план",
+                    "спланируй",
+                    "план реализации",
+                    "как реализовать",
+                    "планирование",
+                    "спроектируй",
+                    "архитектура",
+                    "новая фича",
+                    "с нуля"
                 ],
                 "intentPatterns": [
                     "(create|make|write|draft).*?plan",
@@ -1994,7 +2152,14 @@
                     "done this before",
                     "similar tasks",
                     "rag judge",
-                    "judge plan"
+                    "judge plan",
+                    "валидируй план",
+                    "проверь план",
+                    "ревью плана",
+                    "перед реализацией",
+                    "готов к реализации",
+                    "похожие задачи",
+                    "делали раньше"
                 ],
                 "intentPatterns": [
                     "(validate|check|review).*?plan",
@@ -2030,7 +2195,21 @@
                     "problem",
                     "bug",
                     "logs",
-                    "check logs"
+                    "check logs",
+                    "отладка",
+                    "отладь",
+                    "разберись",
+                    "найди баг",
+                    "почему",
+                    "что не так",
+                    "не работает",
+                    "ошибка",
+                    "сломалось",
+                    "падает",
+                    "проблема",
+                    "баг",
+                    "логи",
+                    "проверь логи"
                 ],
                 "intentPatterns": [
                     "(debug|investigate|diagnose).*?(issue|bug|error|problem)",
