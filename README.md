@@ -15,7 +15,6 @@
 - [Why Continuous Claude?](#why-continuous-claude)
 - [Design Principles](#design-principles)
 - [How to Talk to Claude](#how-to-talk-to-claude)
-<<<<<<< HEAD
 - [Quick Start](#quick-start)
 - [Architecture](#architecture)
 - [Core Systems](#core-systems)
@@ -32,24 +31,6 @@
 - [Configuration](#configuration)
 - [Contributing](#contributing)
 - [License](#license)
-=======
-- [Skills vs Agents](#skills-vs-agents)
-- [MCP Code Execution](#mcp-code-execution)
-- [Continuity System](#continuity-system)
-- [Hooks System](#hooks-system)
-- [Notifications](#notifications) (Windows Toast, Telegram)
-- [Reasoning History](#reasoning-history)
-- [Braintrust Session Tracing](#braintrust-session-tracing-optional) + [Compound Learnings](#compound-learnings)
-- [Artifact Index](#artifact-index) (handoff search, outcome tracking)
-- [TDD Workflow](#tdd-workflow)
-- [Code Quality (qlty)](#code-quality-qlty)
-- [Directory Structure](#directory-structure)
-- [Environment Variables](#environment-variables)
-- [Glossary](#glossary)
-- [Troubleshooting](#troubleshooting)
-- [Acknowledgments](#acknowledgments)
-
->>>>>>> fcfe8ae (Fork customizations: global install, Telegram, Toast, Russian keywords)
 
 ---
 
@@ -92,7 +73,6 @@ An agent is five things: **Prompt + Tools + Context + Memory + Model**.
 We resist plugin sprawl. Every MCP, subscription, and tool you add promises improvement but risks breaking context, tools, or prompts through clashes.
 
 **Our approach:**
-
 - **Time, not money** — No required paid services. Perplexity and NIA are optional, high-value-per-token.
 - **Learn, don't accumulate** — A system that learns handles edge cases better than one that collects plugins.
 - **Shift-left validation** — Hooks run pyright/ruff after edits, catching errors before tests.
@@ -209,7 +189,8 @@ uv run python -m scripts.setup.wizard
 | 10 | TLDR code analysis tool |
 | 11-12 | Diagnostics tools + Loogle (optional) |
 
-#### To Uninstall
+
+#### To Uninstall:
 
 ```
 cd Continuous-Claude-v3/opc
@@ -222,14 +203,14 @@ cd Continuous-Claude-v3/opc
 2. Restores your backup → Finds the most recent ~/.claude.backup.* (created during install) and restores it
 3. Preserves user data → Copies these back from the archive:
 
-- history.jsonl (your command history)
-- mcp_config.json (MCP servers)
-- .env (API keys)
-- projects.json (project configs)
-- file-history/ directory
-- projects/ directory
-
+  - history.jsonl (your command history)
+  - mcp_config.json (MCP servers)
+  - .env (API keys)
+  - projects.json (project configs)
+  - file-history/ directory
+  - projects/ directory
 4. Removes CC-v3 additions → Everything else (hooks, skills, agents, rules)
+
 
 **Safety Features**
 
@@ -237,6 +218,7 @@ cd Continuous-Claude-v3/opc
 - The wizard asks for confirmation before proceeding
 - It restores from the backup that was made during installation
 - All your Claude Code settings stay intact
+
 
 ### Remote Database Setup
 
@@ -256,7 +238,6 @@ psql -h hostname -U user -d continuous_claude -f docker/init-schema.sql
 ```
 
 > **Managed PostgreSQL tips:**
->
 > - **AWS RDS**: Add `vector` to `shared_preload_libraries` in DB Parameter Group
 > - **Supabase**: Enable via Database Extensions page
 > - **Azure Database**: Use Extensions pane to enable pgvector
@@ -517,17 +498,7 @@ Skills are modular capabilities triggered by natural language. Located in `.clau
 
 #### Meta-Skill Reference
 
-<<<<<<< HEAD
-Each meta-skill supports modes, scopes, and flags. Type the skill alone (e.g., `/build`) to get an interactive question flow
-=======
-
-**Why this works:**
-
-- Ledgers are lossless - you control what's saved
-- Fresh context = full signal
-- Agents spawn with clean context, not degraded summaries
-
->>>>>>> fcfe8ae (Fork customizations: global install, Telegram, Toast, Russian keywords)
+Each meta-skill supports modes, scopes, and flags. Type the skill alone (e.g., `/build`) to get an interactive question flow.
 
 **`/build <mode> [options] [description]`**
 
@@ -538,8 +509,6 @@ Each meta-skill supports modes, scopes, and flags. Type the skill alone (e.g., `
 | `tdd` | plan → test-first → implement | Test-driven development |
 | `refactor` | impact analysis → plan → TDD → implement | Safe refactoring |
 
-<<<<<<< HEAD
-
 | Option | Effect |
 |--------|--------|
 | `--skip-discovery` | Skip interview phase (have clear spec) |
@@ -547,615 +516,10 @@ Each meta-skill supports modes, scopes, and flags. Type the skill alone (e.g., `
 | `--skip-commit` | Don't auto-commit |
 | `--skip-pr` | Don't create PR description |
 | `--parallel` | Run research agents in parallel |
-=======
-**Which option?**
-
-- Just trying it on ONE project? → Start with Option 1
-- Want it on ALL your projects? → Do Option 2 (global), then Option 3 (per-project)
-
->>>>>>> fcfe8ae (Fork customizations: global install, Telegram, Toast, Russian keywords)
 
 **`/fix <scope> [options] [description]`**
 
-<<<<<<< HEAD
 | Scope | Chain | Use For |
-=======
-
-```bash
-# Clone
-git clone https://github.com/parcadei/claude-continuity-kit.git
-cd claude-continuity-kit
-
-# Install Python deps
-uv sync
-
-# Configure (optional - add API keys for extra features)
-cp .env.example .env
-
-# Start
-claude
-```
-
-**Works immediately** - hooks are pre-bundled, no `npm install` needed.
-
-### Option 2: Install Globally (Use in Any Project)
-
-```bash
-# After cloning and syncing
-./install-global.sh
-```
-
-**What it does:**
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Continuous Claude - Global Installation                    │
-└─────────────────────────────────────────────────────────────┘
-
-This will install to: ~/.claude
-
-⚠️  WARNING: The following will be REPLACED:
-   • ~/.claude/skills/     (all skills)
-   • ~/.claude/agents/     (all agents)
-   • ~/.claude/rules/      (all rules)
-   • ~/.claude/hooks/      (all hooks)
-   • ~/.claude/settings.json (backup created)
-
-✓ PRESERVED (not touched):
-   • ~/.claude/.env
-   • ~/.claude/cache/
-   • ~/.claude/state/
-
-📦 A full backup will be created at ~/.claude-backup-<timestamp>
-
-Continue with installation? [y/N] y
-
-Installing Continuous Claude to ~/.claude...
-
-✓ uv installed (Python package manager)
-✓ qlty installed (code quality toolkit)
-Installing MCP runtime package globally...
-✓ MCP commands installed: mcp-exec, mcp-generate, mcp-discover
-
-Creating full backup at ~/.claude-backup-20251225_043445...
-Backup complete. To restore: rm -rf ~/.claude && mv ~/.claude-backup-<timestamp> ~/.claude
-
-Copying skills...
-Copying agents...
-Copying rules...
-Copying hooks...
-Copying scripts...
-Copying plugins...
-Installing settings.json...
-Creating .env template...
-
-Installation complete!
-```
-
-**Global MCP cleanup (optional):**
-
-If you have MCP servers defined globally in `~/.claude.json`, the script detects them:
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️  GLOBAL MCP SERVERS DETECTED
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Found 9 global MCP servers in ~/.claude.json:
-  • agi-memory
-  • ast-grep
-  • beads
-  • firecrawl
-  • github
-  ...
-
-These servers are inherited by ALL projects and can cause
-skills to use unexpected tools (e.g., /onboard using 'beads').
-
-Recommended: Remove global MCP servers and configure them
-per-project in each project's .mcp.json instead.
-
-Remove global MCP servers from ~/.claude.json? [y/N] y
-Backup created: ~/.claude.json.backup.<timestamp>
-✓ Removed global MCP servers
-
-To restore: cp ~/.claude.json.backup.<timestamp> ~/.claude.json
-```
-
-**Why remove global MCP?** Global MCP servers are inherited by ALL projects. This can cause unexpected behavior where skills use random tools instead of following their instructions. Best practice: configure MCP servers per-project in `.mcp.json`.
-
-### Option 3: Initialize a New Project
-
-After global install, set up any project for full continuity support:
-
-```bash
-cd your-project
-~/.claude/scripts/init-project.sh
-```
-
-**What it does:**
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Continuous Claude - Project Initialization                 │
-└─────────────────────────────────────────────────────────────┘
-
-This will create:
-  • thoughts/ledgers/     - Continuity ledgers
-  • thoughts/shared/      - Plans and handoffs
-  • .claude/cache/        - Artifact Index database
-
-Project: /path/to/your-project
-
-Continue? [y/N] y
-
-Creating directories...
-✓ thoughts/ledgers/
-✓ thoughts/shared/handoffs/
-✓ thoughts/shared/plans/
-✓ .claude/cache/artifact-index/
-
-Initializing Artifact Index database...
-✓ Created context.db with FTS5 schema
-
-Adding to .gitignore...
-✓ Added .claude/cache/ to .gitignore
-
-Project initialized! You can now:
-  • Use /continuity_ledger to save session state
-  • Use /create_handoff to create session handoffs
-  • Use /onboard to analyze the codebase
-```
-
-This creates:
-
-- `thoughts/` - Plans, handoffs, ledgers (gitignored)
-- `.claude/cache/artifact-index/` - Local search database (SQLite + FTS5)
-- Adds `.claude/cache/` to `.gitignore`
-
-**For brownfield projects**, run `/onboard` after initialization to analyze the codebase and create an initial ledger.
-
-### What's Optional?
-
-All external services are optional. Without API keys:
-
-- **Continuity system**: Works (no external deps)
-- **TDD workflow**: Works (no external deps)
-- **Session tracing**: Disabled (needs BRAINTRUST_API_KEY)
-- **Web search**: Disabled (needs PERPLEXITY_API_KEY)
-- **Code search**: Falls back to grep (MORPH_API_KEY speeds it up)
-
-See `.env.example` for the full list of optional services.
-
----
-
-## How to Talk to Claude
-
-This kit responds to natural language triggers. Say certain phrases and Claude activates the right skill or spawns an agent.
-
-### Session Management
-
-| Say This | What Happens |
-|----------|--------------|
-| "save state", "update ledger", "before clear" | Updates continuity ledger, preserves state for `/clear` |
-| "done for today", "wrap up", "create handoff" | Creates detailed handoff doc for next session |
-| "resume work", "continue from handoff", "pick up where" | Loads handoff, analyzes context, continues |
-
-### Onboarding (New Projects)
-
-| Say This | What Happens |
-|----------|--------------|
-| "onboard", "get familiar", "analyze this project" | Runs **/onboard** skill - analyzes codebase, creates initial ledger |
-| "explore codebase", "understand the code", "what does this do" | Spawns **rp-explorer** for token-efficient exploration |
-
-**The `/onboard` skill** is designed for brownfield projects (existing codebases). It:
-
-1. **Checks prerequisites** - Verifies `thoughts/` structure exists (run `init-project.sh` first)
-2. **Analyzes codebase** - Uses RepoPrompt if available, falls back to bash commands:
-   - `rp-cli -e 'tree'` - Directory structure
-   - `rp-cli -e 'builder "understand the codebase"'` - AI-powered file selection
-   - `rp-cli -e 'structure .'` - Code signatures (token-efficient)
-3. **Detects tech stack** - Language, framework, database, testing, CI/CD
-4. **Asks your goal** - Feature work, bug fixes, refactoring, or learning
-5. **Creates continuity ledger** - At `thoughts/ledgers/CONTINUITY_CLAUDE-<project>.md`
-
-**Example workflow:**
-
-```bash
-# 1. Initialize project structure
-~/.claude/scripts/init-project.sh
-
-# 2. Start Claude and onboard
-claude
-> /onboard
-```
-
-### Planning & Implementation
-
-| Say This | What Happens |
-|----------|--------------|
-| "create plan", "design", "architect", "greenfield" | Spawns **plan-agent** to create implementation plan |
-| "validate plan", "before implementing", "ready to implement" | Spawns **validate-agent** (RAG-judge + WebSearch) |
-| "implement plan", "execute plan", "run the plan" | Spawns **implement_plan** with agent orchestration |
-| "verify implementation", "did it work", "check code" | Runs **validate_plan** to verify against plan |
-
-**The 3-step flow:**
-
-```
-1. plan-agent     → Creates plan in thoughts/shared/plans/
-2. validate-agent → RAG-judge (past precedent) + WebSearch (best practices)
-3. implement_plan → Executes with task agents, creates handoffs
-```
-
-### Code Quality
-
-| Say This | What Happens |
-|----------|--------------|
-| "implement", "add feature", "fix bug", "refactor" | **TDD workflow** activates - write failing test first |
-| "lint", "code quality", "auto-fix", "check code" | Runs **qlty-check** (70+ linters, auto-fix) |
-| "commit", "push", "save changes" | Runs **commit** skill (removes Claude attribution) |
-| "describe pr", "create pr" | Generates PR description from changes |
-
-### Codebase Exploration
-
-| Say This | What Happens |
-|----------|--------------|
-| "brownfield", "existing codebase", "repoprompt" | Spawns **rp-explorer** - uses RepoPrompt for token-efficient exploration |
-| "how does X work", "trace", "data flow", "deep dive" | Spawns **codebase-analyzer** for detailed analysis |
-| "find files", "where are", "which files handle" | Spawns **codebase-locator** (super grep/glob) |
-| "find examples", "similar pattern", "how do we do X" | Spawns **codebase-pattern-finder** |
-| "explore", "get familiar", "overview" | Spawns **explore** agent with configurable depth |
-
-**rp-explorer uses RepoPrompt tools** (requires Pro license - $14.99/mo or $349 lifetime):
-
-- **Context Builder** - Deep AI-powered exploration (async, 30s-5min)
-- **Codemaps** - Function/class signatures without full file content (10x fewer tokens)
-- **Slices** - Read specific line ranges, not whole files
-- **Search** - Pattern matching with context lines
-- **Workspaces** - Switch between projects
-
-*Free tier available with basic features (32k token limit, no MCP server)*
-
-### Research
-
-| Say This | What Happens |
-|----------|--------------|
-| "research", "investigate", "find out", "best practices" | Spawns **research-agent** (uses MCP tools) |
-| "research repo", "analyze this repo", "clone and analyze" | Spawns **repo-research-analyst** |
-| "docs", "documentation", "library docs", "API reference" | Runs **nia-docs** for library documentation |
-| "web search", "look up", "latest", "current info" | Runs **perplexity-search** for web research |
-
-### Debugging
-
-| Say This | What Happens |
-|----------|--------------|
-| "debug", "investigate issue", "why is it broken" | Spawns **debug-agent** (logs, code search, git history) |
-| "not working", "error", "failing", "what's wrong" | Same - triggers debug-agent |
-
-### Code Search
-
-| Say This | What Happens |
-|----------|--------------|
-| "search code", "grep", "find in code", "find text" | Runs **morph-search** (20x faster than grep) |
-| "ast", "find all calls", "refactor", "codemod" | Runs **ast-grep-find** (structural search) |
-| "search github", "find repo", "github issue" | Runs **github-search** |
-
-### Learning & Insights
-
-| Say This | What Happens |
-|----------|--------------|
-| "compound learnings", "turn learnings into rules" | Runs **compound-learnings** - transforms session learnings into skills/rules |
-| "analyze session", "what happened", "session insights" | Runs **braintrust-analyze** to review traces |
-| "recall", "what was tried", "past reasoning" | Searches **reasoning history** |
-
-### Hook Development
-
-| Say This | What Happens |
-|----------|--------------|
-| "create hook", "write hook", "hook for" | Loads **hook-developer** skill - complete reference for all 10 hook types |
-| "hook schema", "hook input", "hook output" | Same - shows input/output schemas, matchers, testing patterns |
-| "debug hook", "hook not working", "hook failing" | Runs **debug-hooks** skill - systematic debugging workflow |
-
-**The `/hook-developer` skill** is a comprehensive reference covering:
-
-- All 10 Claude Code hook types (PreToolUse, PostToolUse, SessionStart, etc.)
-- Input/output JSON schemas for each hook
-- Matcher patterns and registration in settings.json
-- Shell wrapper → TypeScript handler pattern
-- Testing commands for manual hook validation
-
-### Other
-
-| Say This | What Happens |
-|----------|--------------|
-| "scrape", "fetch url", "crawl" | Runs **firecrawl-scrape** |
-| "create skill", "skill triggers", "skill system" | Runs **skill-developer** meta-skill |
-| "codebase structure", "file tree", "signatures" | Runs **repoprompt** for code maps |
-
----
-
-## Skills vs Agents
-
-**Skills** run in current context. Quick, focused, minimal token overhead.
-
-**Agents** spawn with fresh context. Use for complex tasks that would degrade in a compacted context. They return a summary and optionally create handoffs.
-
-### When to Use Agents
-
-- Brownfield exploration → `rp-explorer` first
-- Multi-step research → `research-agent`
-- Complex debugging → `debug-agent`
-- Implementation with handoffs → `implement_plan`
-
-### Agent Orchestration
-
-For large implementations, `implement_plan` spawns task agents:
-
-```
-implement_plan (orchestrator)
-    ├── task-agent (task 1) → handoff-01.md
-    ├── task-agent (task 2) → handoff-02.md
-    └── task-agent (task 3) → handoff-03.md
-```
-
-Each task agent:
-
-1. Reads previous handoff
-2. Does its work with TDD
-3. Creates handoff for next agent
-4. Returns summary to orchestrator
-
----
-
-## MCP Code Execution
-
-Tools are executed via scripts, not loaded into context. This saves tokens.
-
-```bash
-# Example: run a script
-uv run python -m runtime.harness scripts/qlty_check.py --fix
-
-# Available scripts
-ls scripts/
-```
-
-### Adding MCP Servers
-
-1. Edit `mcp_config.json` (or `.mcp.json`)
-2. Add API keys to `.env`
-3. Run `uv run mcp-generate`
-
-```json
-{
-  "mcpServers": {
-    "my-server": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "my-mcp-server"],
-      "env": { "API_KEY": "${MY_API_KEY}" }
-    }
-  }
-}
-```
-
-### Developing Custom MCP Scripts
-
-After running `install-global.sh`, you can create and run MCP scripts from any project:
-
-```bash
-# Global commands available everywhere
-mcp-exec scripts/my_script.py      # Run a script
-mcp-generate                        # Generate wrappers for configured servers
-```
-
-**Config Merging:** Global config (`~/.claude/mcp_config.json`) is merged with project config (`.mcp.json` or `mcp_config.json`). Project settings override global for same-named servers.
-
-**Creating a new script:**
-
-```python
-# scripts/my_tool.py
-"""
-USAGE: uv run python -m runtime.harness scripts/my_tool.py --query "search term"
-"""
-import argparse
-from runtime.mcp_client import call_mcp_tool
-
-async def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--query", required=True)
-    args = parser.parse_args()
-
-    # Tool format: serverName__toolName
-    result = await call_mcp_tool("my-server__search", {"query": args.query})
-    print(result)
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
-```
-
-**Creating a skill wrapper:**
-
-```bash
-mkdir -p .claude/skills/my-tool
-cat > .claude/skills/my-tool/SKILL.md << 'EOF'
----
-name: my-tool
-description: Search with my tool
----
-# My Tool
-
-uv run python -m runtime.harness scripts/my_tool.py --query "your query"
-EOF
-```
-
-**Adding skill triggers for auto-activation:**
-
-```json
-// .claude/skills/skill-rules.json
-{
-  "skills": {
-    "my-tool": {
-      "type": "domain",
-      "enforcement": "suggest",
-      "priority": "high",
-      "description": "Search with my tool",
-      "promptTriggers": {
-        "keywords": ["my-tool", "search with tool"],
-        "intentPatterns": ["(search|find).*?with.*?tool"]
-      }
-    }
-  }
-}
-```
-
-**Enforcement levels:**
-
-- `suggest` - Skill appears as suggestion (most common)
-- `block` - Requires skill before proceeding (guardrail)
-- `warn` - Shows warning but allows proceeding
-
-**Priority levels:** `critical` > `high` > `medium` > `low`
-
-#### Agent Integration
-
-Agents can reference your scripts for complex workflows. Example from `.claude/agents/research-agent.md`:
-
-##### Step 3: Research with MCP Tools
-
-###### For External Knowledge
-
-```bash
-# Documentation search (Nia)
-uv run python -m runtime.harness scripts/nia_docs.py --query "your query"
-
-# Web research (Perplexity)
-uv run python -m runtime.harness scripts/perplexity_search.py --query "your query"
-```
-
-###### For Codebase Knowledge
-
-```bash
-# Fast code search (Morph)
-uv run python -m runtime.harness scripts/morph_search.py --query "pattern" --path "."
-```
-
-Agents use MCP scripts to:
-
-- Perform research across multiple sources
-- Investigate issues with codebase search
-- Apply fixes using fast editing tools
-- Gather information for analysis
-
-See `.claude/agents/research-agent.md` and `.claude/agents/debug-agent.md` for complete examples.
-
-#### Full Pattern: MCP Server → Scripts → Skills → Agents
-
-The complete integration flow:
-
-```
-1. MCP Server Configuration
-   ↓ (mcp_config.json or .mcp.json)
-
-2. Script Creation
-   ↓ (scripts/my_tool.py with CLI args)
-
-3. Skill Wrapper
-   ↓ (.claude/skills/my-tool/SKILL.md)
-
-4. Skill Triggers
-   ↓ (.claude/skills/skill-rules.json)
-
-5. Agent Integration (optional)
-   ↓ (.claude/agents/my-agent.md references the script)
-
-6. Auto-activation
-   → User types trigger keyword → Skill suggests → Script executes
-```
-
-**Real-world example:** `morph-search`
-
-1. **Server:** `morph` MCP server in `mcp_config.json`
-2. **Script:** `scripts/morph_search.py` with `--query`, `--path` args
-3. **Skill:** `.claude/skills/morph-search/SKILL.md` documents usage
-4. **Triggers:** `.claude/skills/skill-rules.json` activates on "search code", "fast search"
-5. **Agents:** `research-agent.md` and `debug-agent.md` use for codebase search
-6. **Activation:** User says "search code for error handling" → auto-suggests
-
-**Key benefits:**
-
-- **Progressive disclosure:** 110 tokens (99.6% reduction) vs full tool schemas
-- **Reusability:** Scripts work for agents, skills, and direct execution
-- **Auto-discovery:** skill-rules.json enables context-aware suggestions
-- **Flexibility:** Change parameters via CLI, no code edits needed
-
----
-
-## Continuity System
-
-### Ledger (within session)
-
-Before running `/clear`:
-
-```
-"Update the ledger, I'm about to clear"
-```
-
-Creates/updates `CONTINUITY_CLAUDE-<session>.md` with:
-
-- Goal and constraints
-- What's done, what's next
-- Key decisions
-- Working files
-
-After `/clear`, the ledger loads automatically.
-
-### Handoff (between sessions)
-
-When done for the day:
-
-```
-"Create a handoff, I'm done for today"
-```
-
-Creates `thoughts/handoffs/<session>/handoff-<timestamp>.md` with:
-
-- Detailed context
-- Recent changes with file:line references
-- Learnings and patterns
-- Next steps
-
-Next session:
-
-```
-"Resume from handoff"
-```
-
----
-
-## Hooks System
-
-Hooks are the backbone of continuity. They intercept Claude Code lifecycle events and automate state preservation.
-
-### StatusLine (Context Indicator)
-
-The colored status bar shows context usage in real-time:
-
-```
-45.2K 23% | main U:3 | ✓ Fixed auth → Add tests
- ↑     ↑      ↑   ↑        ↑           ↑
- │     │      │   │        │           └── Current focus (from ledger)
- │     │      │   │        └── Last completed item
- │     │      │   └── Uncommitted changes (Staged/Unstaged/Added)
- │     │      └── Git branch
- │     └── Context percentage used
- └── Token count
-```
-
-**Color coding:**
-
-| Color | Range | Meaning |
->>>>>>> fcfe8ae (Fork customizations: global install, Telegram, Toast, Russian keywords)
 |-------|-------|---------|
 | `bug` | debug → implement → test → commit | General bug fix |
 | `hook` | debug-hooks → hook-developer → implement → test | Hook issues |
@@ -1185,83 +549,7 @@ The colored status bar shows context usage in real-time:
 
 **`/tdd`, `/refactor`, `/review`, `/security`, `/release`**
 
-<<<<<<< HEAD
-These follow their defined chains without mode flags. Just run
-=======
-
-**What it does:**
-
-1. Finds most recent `CONTINUITY_CLAUDE-*.md` ledger
-2. Extracts Goal and current focus ("Now:")
-3. Finds latest handoff (task-*.md or auto-handoff-*.md)
-4. Injects ledger + handoff into system context
-
-**Result:** After `/clear`, Claude immediately knows:
-
-- What you're working on
-- What's done vs pending
-- Recent decisions and learnings
-
-### PreCompact Hook
-
-Runs: Before any compaction
-
-**Auto-compact (trigger: auto):**
-
-1. Parses transcript to extract tool calls and responses
-2. Generates detailed `auto-handoff-<timestamp>.md` with:
-   - Files modified
-   - Recent tool outputs
-   - Current work state
-3. Saves to `thoughts/handoffs/<session>/`
-
-**Manual compact (trigger: manual):**
-
-- Blocks compaction
-- Prompts you to run `/continuity_ledger` first
-
-### UserPromptSubmit Hook
-
-Runs: Every message you send
-
-**Two functions:**
-
-1. **Skill activation** - Scans your message for keywords defined in `skill-rules.json`. Shows relevant skills:
-
-   ```
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   🎯 SKILL ACTIVATION CHECK
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-   ⚠️ CRITICAL SKILLS (REQUIRED):
-     → create_handoff
-
-   📚 RECOMMENDED SKILLS:
-     → commit
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ```
-
-2. **Context warnings** - Reads context % and shows tiered warnings:
-   - 70%: `Consider handoff when you reach a stopping point.`
-   - 80%: `Recommend: /create_handoff then /clear soon`
-   - 90%: `CONTEXT CRITICAL: Run /create_handoff NOW!`
-
-### TypeScript Preflight Hook (PreToolUse)
-
-Runs: Before Edit/Write on `.ts` or `.tsx` files
-
-**What it does:**
-
-1. Runs `tsc --noEmit` on the file being edited
-2. If type errors exist, blocks the edit and shows errors to Claude
-3. Claude fixes the issues before proceeding
-
-**Why this matters:** Catches type errors early, before they compound across multiple edits. Claude sees the errors in context and can fix them immediately.
-
-**Example output when blocked:**
-
->>>>>>> fcfe8ae (Fork customizations: global install, Telegram, Toast, Russian keywords)
-
+These follow their defined chains without mode flags. Just run:
 ```
 /tdd "implement retry logic"
 /refactor "extract auth module"
@@ -1273,35 +561,29 @@ Runs: Before Edit/Write on `.ts` or `.tsx` files
 #### Key Skills (High-Value Tools)
 
 **Planning & Risk**
-
 - **premortem**: TIGERS & ELEPHANTS risk analysis - use before any significant implementation
 - **discovery-interview**: Transform vague ideas into detailed specs
 
 **Context Management**
-
 - **create_handoff**: Capture session state for transfer
 - **resume_handoff**: Resume from handoff with context
 - **continuity_ledger**: Track state within session
 
 **Code Analysis (95% Token Savings)**
-
 - **tldr-code**: Call graph, CFG, DFG, slicing
 - **ast-grep-find**: Structural code search
 - **morph-search**: Fast text search (20x faster than grep)
 
 **Research**
-
 - **perplexity-search**: AI-powered web search
 - **nia-docs**: Library documentation search
 - **github-search**: Search GitHub code/issues/PRs
 
 **Quality**
-
 - **qlty-check**: 70+ linters, auto-fix
 - **braintrust-analyze**: Session analysis, replay, and debugging failed sessions
 
 **Math & Formal Proofs**
-
 - **math**: Unified computation (SymPy, Z3, Pint) — one entry point for all math
 - **prove**: Lean4 theorem proving with 5-phase workflow (Research → Design → Test → Implement → Verify)
 - **pint-compute**: Unit-aware arithmetic and conversions
@@ -1331,138 +613,6 @@ What do I want to do?
 
 ### Agents System
 
-**For developers** who want to modify hooks:
-
-```bash
-cd .claude/hooks
-vim src/session-start-continuity.ts  # Edit source
-./build.sh                            # Rebuild dist/
-```
-
-**Note on latency:** Some hooks (especially `SessionEnd` and `Stop`) may add 1-3 seconds of latency as they finalize traces and extract learnings. This is expected - the hooks run fire-and-forget processes that don't block the next session.
-
-Hooks receive JSON input and return JSON output:
-
-```typescript
-// Input varies by event type
-interface SessionStartInput {
-  source: 'startup' | 'resume' | 'clear' | 'compact';
-  session_id: string;
-}
-
-// Output controls behavior (varies by hook type)
-interface HookOutput {
-  continue?: boolean;             // true to proceed (default)
-  decision?: 'block';             // Block stops the action (PreToolUse only)
-  reason?: string;                // Shown when blocking
-  hookSpecificOutput?: {          // Injected into context
-    additionalContext: string;
-  };
-}
-```
-
-### Registering Hooks
-
-Hooks are configured in `.claude/settings.json`:
-
-```json
-{
-  "statusLine": {
-    "type": "command",
-    "command": "$CLAUDE_PROJECT_DIR/.claude/scripts/status.sh"
-  },
-  "hooks": {
-    "SessionStart": [{
-      "matcher": "clear",
-      "hooks": [{
-        "type": "command",
-        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/session-start-continuity.sh"
-      }]
-    }]
-  }
-}
-```
-
-**Matcher patterns:** Use `|` for multiple triggers: `"Edit|Write|Bash"`
-
----
-
-## Notifications
-
-Get notified when Claude completes tasks or needs your attention. Two isolated notification channels:
-
-### Windows Toast (WSL)
-
-Desktop notifications via BurntToast PowerShell module.
-
-**Requires:**
-
-- WSL environment with `powershell.exe` accessible
-- BurntToast module: `powershell.exe -Command "Install-Module -Name BurntToast -Force"`
-
-**Location:** `~/.claude/hooks/show-toast.sh`
-
-**Features:**
-
-- Custom Claude icon (`~/.claude/cctoast-wsl/assets/claude.png`)
-- Path caching for performance
-- Automatic WSL → Windows path conversion
-
-### Telegram Bot
-
-Remote notifications via Telegram Bot API. Get notifications on your phone/desktop Telegram client.
-
-**Setup:**
-
-1. Create bot via [@BotFather](https://t.me/botfather) → get `TELEGRAM_BOT_TOKEN`
-2. Get your chat ID via [@userinfobot](https://t.me/userinfobot) → get `TELEGRAM_CHAT_ID`
-3. Add to `~/.claude/.env`:
-
-```bash
-TELEGRAM_ENABLED=true
-TELEGRAM_BOT_TOKEN=your_bot_token
-TELEGRAM_CHAT_ID=your_chat_id
-```
-
-**Location:** `.claude/hooks/send-telegram.sh`
-
-### Hook Events
-
-Both notifications trigger on:
-
-| Event | Message |
-|-------|---------|
-| **Notification** | "Waiting for your response" |
-| **Stop** | "Task completed" |
-
-### Manual Usage
-
-```bash
-# Windows Toast
-~/.claude/hooks/show-toast.sh --title "Test" --message "Hello"
-
-# Telegram
-.claude/hooks/send-telegram.sh --title "Test" --message "Hello"
-
-# Debug mode
-TELEGRAM_DEBUG=1 .claude/hooks/send-telegram.sh --stop-hook
-CCTOAST_DEBUG=1 ~/.claude/hooks/show-toast.sh --notification-hook
-```
-
-### Architecture
-
-```
-Hook Event (Notification/Stop)
-    ├── show-toast.sh      → Windows Desktop (BurntToast/PowerShell)
-    └── send-telegram.sh   → Telegram Bot API (curl)
-```
-
-Both channels are isolated - disabling one doesn't affect the other. Errors are logged silently to avoid disrupting Claude.
-
----
-
-## Reasoning History
-
 Agents are specialized AI workers spawned via the Task tool. Located in `.claude/agents/`.
 
 #### Agent Categories (32 active)
@@ -1470,43 +620,27 @@ Agents are specialized AI workers spawned via the Task tool. Located in `.claude
 > **Note:** There are likely too many agents—consolidation is a v4 goal. Use what fits your workflow.
 
 **Orchestrators (2)**
-
 - **maestro**: Multi-agent coordination with patterns (Pipeline, Swarm, Jury)
 - **kraken**: TDD implementation agent with checkpoint/resume support
 
 **Planners (4)**
-
 - **architect**: Feature planning + API integration
 - **phoenix**: Refactoring + framework migration planning
 - **plan-agent**: Lightweight planning with research/MCP tools
 - **validate-agent**: Validate plans against best practices
 
-<<<<<<< HEAD
 **Explorers (4)**
-
 - **scout**: Codebase exploration (use instead of Explore)
 - **oracle**: External research (web, docs, APIs)
 - **pathfinder**: External repository analysis
 - **research-codebase**: Document codebase as-is
-=======
-**Example:**
-
-```
-"recall what was tried for authentication bugs"
-→ Searches .git/claude/commits/*/reasoning.md
-→ Returns: "In commit abc123, tried X but failed because Y, fixed with Z"
-```
-
->>>>>>> fcfe8ae (Fork customizations: global install, Telegram, Toast, Russian keywords)
 
 **Implementers (3)**
-
 - **kraken**: TDD implementation with strict test-first workflow
 - **spark**: Lightweight fixes and quick tweaks
 - **agentica-agent**: Build Python agents using Agentica SDK
 
 **Debuggers (3)**
-
 - **sleuth**: General bug investigation and root cause
 - **debug-agent**: Issue investigation via logs/code search
 - **profiler**: Performance profiling and race conditions
@@ -1562,18 +696,7 @@ Hooks intercept Claude Code at lifecycle points. Located in `.claude/hooks/`.
 
 TLDR provides token-efficient code summaries through 5 analysis layers.
 
-<<<<<<< HEAD
-
 #### The 5-Layer Stack
-
-=======
-2. **Add to environment:**
-
-   ```bash
-   echo 'BRAINTRUST_API_KEY="sk-..."' >> ~/.claude/.env
-   ```
-
->>>>>>> fcfe8ae (Fork customizations: global install, Telegram, Toast, Russian keywords)
 
 | Layer | Name | What it provides | Tokens |
 |-------|------|------------------|--------|
@@ -1745,18 +868,7 @@ status: complete
 2. Write integration tests
 ```
 
-<<<<<<< HEAD
-
 #### Commands
-
-=======
-This enables:
-
-- **Trace → Handoff** correlation (what work produced this handoff?)
-- **Session family queries** (all handoffs from session X)
-- **RAG-enhanced judging** (Artifact Index precedent for plan validation)
-
->>>>>>> fcfe8ae (Fork customizations: global install, Telegram, Toast, Russian keywords)
 
 | Command | Effect |
 |---------|--------|
@@ -1890,7 +1002,6 @@ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf 
 ```
 
 **Output:**
-
 - **TIGERS**: Clear threats (HIGH/MEDIUM/LOW severity)
 - **ELEPHANTS**: Unspoken concerns
 
@@ -1923,7 +1034,6 @@ uv run python -m scripts.setup.update
 ```
 
 This will:
-
 - Pull latest from GitHub
 - Update hooks, skills, rules, agents
 - Upgrade TLDR if installed
@@ -1973,13 +1083,11 @@ Creates symlinks so `~/.claude/` points directly to repo files. Changes in eithe
 ```
 
 **Pros:**
-
 - Changes auto-sync to repo (can `git commit` improvements)
 - No re-installation needed after `git pull`
 - Contribute back easily
 
 **Cons:**
-
 - Breaking changes in repo affect your setup immediately
 - Need to manage git workflow
 
@@ -2040,7 +1148,6 @@ Get-ChildItem "$HOME\.claude" | Where-Object { $_.LinkType -eq "SymbolicLink" }
 ### For Brownfield Projects
 
 After installation, start Claude and run:
-
 ```
 > /onboard
 ```
@@ -2054,13 +1161,6 @@ This analyzes the codebase and creates an initial continuity ledger.
 ### .claude/settings.json
 
 Central configuration for hooks, tools, and workflows.
-
-<<<<<<< HEAD
-=======
-
-Remove or comment out the Braintrust hooks in `.claude/settings.json`:
-
->>>>>>> fcfe8ae (Fork customizations: global install, Telegram, Toast, Russian keywords)
 
 ```json
 {
@@ -2100,106 +1200,11 @@ Skill activation triggers.
 | `CLAUDE_OPC_DIR` | Path to CC's opc/ directory (set by wizard) | Auto |
 | `CLAUDE_PROJECT_DIR` | Current project directory (set by SessionStart hook) | Auto |
 
-<<<<<<< HEAD
 Services without API keys still work:
-
 - Continuity system (ledgers, handoffs)
 - TLDR code analysis
 - Local git operations
 - TDD workflow
-=======
-
-## Artifact Index
-
-A local SQLite database that indexes handoffs and plans for fast search.
-
-### What It Does
-
-- **Indexes handoffs** with full-text search (FTS5)
-- **Tracks session outcomes** (SUCCEEDED, PARTIAL, FAILED)
-- **Links to Braintrust traces** for correlation
-- **Surfaces unmarked handoffs** at session start
-
-### How It Works
-
-```
-1. Create handoff → PostToolUse hook indexes it immediately
-2. Session ends → Prompts you to mark outcome
-3. Next session → SessionStart surfaces unmarked handoffs
-4. Mark outcomes → Improves future session recommendations
-```
-
-### Marking Outcomes
-
-After completing work, mark the outcome:
-
-```bash
-# List unmarked handoffs
-uv run python scripts/artifact_query.py --unmarked
-
-# Mark an outcome
-uv run python scripts/artifact_mark.py \
-  --handoff abc123 \
-  --outcome SUCCEEDED
-```
-
-**Outcomes:** SUCCEEDED | PARTIAL_PLUS | PARTIAL_MINUS | FAILED
-
-### Querying the Index
-
-```bash
-# Search handoffs by content
-uv run python scripts/artifact_query.py --search "authentication bug"
-
-# Get session history
-uv run python scripts/artifact_query.py --session open-source-release
-```
-
----
-
-## TDD Workflow
-
-When you say "implement", "add feature", or "fix bug", TDD activates:
-
-```
-1. RED    - Write failing test first
-2. GREEN  - Minimal code to pass
-3. REFACTOR - Clean up, tests stay green
-```
-
-**The rule:** No production code without a failing test.
-
-If you write code first, the skill prompts you to delete it and start with a test.
-
----
-
-## Code Quality (qlty)
-
-**Automatically installed** by `install-global.sh`. The `.qlty/` config is included in this repo, so no `qlty init` needed.
-
-Manual install (if needed):
-
-```bash
-curl -fsSL https://qlty.sh/install.sh | bash
-```
-
-Use it:
-
-```
-"lint my code"
-"check code quality"
-"auto-fix issues"
-```
-
-Or directly:
-
-```bash
-qlty check --fix
-qlty fmt
-qlty metrics
-```
-
->>>>>>> fcfe8ae (Fork customizations: global install, Telegram, Toast, Russian keywords)
 
 ---
 
@@ -2236,85 +1241,18 @@ continuous-claude/
 
 ## Contributing
 
-<<<<<<< HEAD
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 
 - Adding new skills
 - Creating agents
 - Developing hooks
 - Extending TLDR
-=======
-Add to `~/.claude/.env`:
-
-```bash
-# Session tracing (optional)
-BRAINTRUST_API_KEY="sk-..."
-
-# MCP services (optional)
-GITHUB_PERSONAL_ACCESS_TOKEN="ghp_..."
-PERPLEXITY_API_KEY="pplx-..."
-FIRECRAWL_API_KEY="fc-..."
-MORPH_API_KEY="sk-..."
-NIA_API_KEY="nk_..."
-
-# Telegram notifications (optional)
-TELEGRAM_ENABLED=true
-TELEGRAM_BOT_TOKEN="your_bot_token"
-TELEGRAM_CHAT_ID="your_chat_id"
-```
-
-Services without API keys still work:
-
-- `git` - local git operations
-- `ast-grep` - structural code search
-- `qlty` - code quality (auto-installed by `install-global.sh`)
-
-License-based (no API key, requires purchase):
-
-- `repoprompt` - codebase maps (Free tier: basic features; Pro: MCP tools, CodeMaps)
-
----
-
-## Glossary
-
-| Term | Definition |
-|------|------------|
-| Session | A single Claude Code conversation (from start to /clear or exit) |
-| Ledger | In-session state file (`CONTINUITY_CLAUDE-*.md`) that survives /clear |
-| Handoff | End-of-session document for transferring work to a new session |
-| Outcome | Session result marker: SUCCEEDED, PARTIAL_PLUS, PARTIAL_MINUS, FAILED |
-| Span | Braintrust trace unit - a turn or tool call within a session |
-| Artifact Index | SQLite database indexing handoffs, plans, and ledgers for RAG queries |
-
----
-
-## Troubleshooting
-
-**"MCP server not configured"**
-
-- Check `mcp_config.json` exists
-- Run `uv run mcp-generate`
-- Verify `.env` has required keys
-
-**Skills not working**
-
-- Run via harness: `uv run python -m runtime.harness scripts/...`
-- Not directly: `python scripts/...`
-
-**Ledger not loading**
-
-- Check `CONTINUITY_CLAUDE-*.md` exists
-- Verify hooks are registered in `.claude/settings.json`
-- Make hooks executable: `chmod +x .claude/hooks/*.sh`
-
->>>>>>> fcfe8ae (Fork customizations: global install, Telegram, Toast, Russian keywords)
 
 ---
 
 ## Acknowledgments
 
 ### Patterns & Architecture
-
 - **[@numman-ali](https://github.com/numman-ali)** - Continuity ledger pattern
 - **[Anthropic](https://anthropic.com)** - Claude Code and "Code Execution with MCP"
 - **[obra/superpowers](https://github.com/obra/superpowers)** - Agent orchestration patterns
@@ -2323,15 +1261,8 @@ License-based (no API key, requires purchase):
 - **[HumanLayer](https://github.com/humanlayer/humanlayer)** - Agent patterns
 
 ### Tools & Services
-
-<<<<<<< HEAD
-
 - **[uv](https://github.com/astral-sh/uv)** - Python packaging
 - **[tree-sitter](https://tree-sitter.github.io/)** - Code parsing
-=======
-
->>>>>>> fcfe8ae (Fork customizations: global install, Telegram, Toast, Russian keywords)
-
 - **[Braintrust](https://braintrust.dev)** - LLM evaluation, logging, and session tracing
 - **[qlty](https://github.com/qltysh/qlty)** - Universal code quality CLI (70+ linters)
 - **[ast-grep](https://github.com/ast-grep/ast-grep)** - AST-based code search and refactoring
